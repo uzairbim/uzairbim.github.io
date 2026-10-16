@@ -1,0 +1,57 @@
+# Pages CMS (https://pagescms.org): lets you add work samples and posts from your browser.
+media:
+  input: public/uploads
+  output: /uploads
+content:
+  - name: certificates
+    label: Certificates
+    type: collection
+    path: src/content/certificates
+    view:
+      fields: [title, issuer]
+    fields:
+      - { name: title, label: Certificate name, type: string, required: true }
+      - { name: issuer, label: Issued by, type: string, required: true }
+      - { name: date, label: Date / year, type: string }
+      - { name: pdf, label: Certificate PDF, type: file, options: { path: public/uploads/certificates } }
+      - { name: image, label: Preview image (optional), type: image, options: { path: public/uploads/certificates } }
+      - { name: link, label: Verification link (optional), type: string }
+      - { name: order, label: Sort order (lower first), type: number, default: 100 }
+      - { name: body, label: Description, type: rich-text }
+  - name: work
+    label: Work samples
+    type: collection
+    path: src/content/work
+    view:
+      fields: [title, category, period]
+    fields:
+      - { name: title, label: Project title, type: string, required: true }
+      - { name: summary, label: One-line summary, type: string, required: true }
+      - { name: category, label: Category, type: string, default: Project }
+      - { name: client, label: Company / client, type: string }
+      - { name: location, label: Location, type: string }
+      - { name: period, label: Period, type: string }
+      - { name: role, label: Your role, type: string }
+      - { name: scope, label: Scope, type: string }
+      - { name: lod, label: Level of detail, type: string }
+      - { name: software, label: Software, type: string, list: true }
+      - { name: cover, label: Cover image, type: image }
+      - { name: images, label: More images, type: image, list: true }
+      - { name: pdf, label: PDF drawings, type: file }
+      - { name: featured, label: Show on home page, type: boolean }
+      - { name: order, label: Sort order (lower first), type: number, default: 100 }
+      - { name: body, label: Description, type: rich-text }
+  - name: posts
+    label: Posts
+    type: collection
+    path: src/content/posts
+    view:
+      fields: [title, date]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Short description, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: cover, label: Cover image, type: image }
+      - { name: draft, label: Draft (hide from site), type: boolean }
+      - { name: body, label: Post, type: rich-text }

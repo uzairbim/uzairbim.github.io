@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', (p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+const date = d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base title={d.title} description={d.description}>
+  <article>
+    <header class="page-hero blueprint">
+      <div class="container narrow">
+        <a class="back" href={url('/posts/')}>← All posts</a>
+        <div class="eyebrow">{date}</div>
+        <h1>{d.title}</h1>
+        <p>{d.description}</p>
+      </div>
+    </header>
+    <div class="section">
+      <div class="container narrow">
+        {d.cover && <img class="cover" src={url(d.cover)} alt="" />}
+        <div class="prose"><Content /></div>
+        {d.tags.length > 0 && <ul class="chips tags">{d.tags.map((t) => <li class="chip">{t}</li>)}</ul>}
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .narrow { max-width: 800px; }
+  .back { display: inline-block; color: #b8c6d6; text-decoration: none; font-size: .9rem; margin-bottom: 18px; }
+  .back:hover { color: #fff; }
+  .cover { border-radius: var(--radius); margin-bottom: 32px; }
+  .prose { font-size: 1.06rem; }
+  .tags { margin-top: 32px; }
+</style>

@@ -1,0 +1,116 @@
+// Everything about you that appears across the site lives here.
+export const profile = {
+  name: 'Uzair Ur Rehman',
+  title: 'BIM Coordinator · Civil Engineer',
+  tagline:
+    'I coordinate multidisciplinary BIM models for high-rise and fit-out projects across Saudi Arabia, from LOD 400 modelling to clash-free shop drawings.',
+  location: 'Jeddah, Saudi Arabia',
+  availability: 'Transferable Iqama',
+  credential: 'CanBIM Certified',
+  email: 'engr.uzairofficial@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/uzair-bim-99070b181',
+  cv: '/cv/Uzair-Ur-Rehman-CV.pdf',
+  certificatesLink:
+    'https://drive.google.com/drive/folders/1gEnsfeMzxnoIgOD_vvTEDHrFduvBCbLC?usp=sharing',
+  photo: '', // e.g. '/uploads/profile.jpg'
+  about: [
+    'I am a civil engineer with more than five years of experience in Building Information Modelling, most of it on large projects in Saudi Arabia including hotels, high-rise buildings, entertainment venues and NEOM.',
+    'My work covers BIM workflows, clash detection and 4D/5D BIM in line with ISO 19650 and BIMForum LOD standards. I lead multidisciplinary coordination between architecture, structure and MEP teams, and I build automation with Dynamo, pyRevit and DiRoots to make delivery faster and more consistent.',
+  ],
+  stats: [
+    { value: '5+', label: 'Years in BIM' },
+    { value: '10+', label: 'Major projects' },
+    { value: 'LOD 400', label: 'Construction models' },
+    { value: 'ISO 19650', label: 'Information management' },
+  ],
+  experience: [
+    {
+      role: 'BIM Coordinator',
+      company: 'Havelock One (Interior Fit-out)',
+      place: 'Jeddah, KSA',
+      period: 'Feb 2026 – Present',
+      project: 'Four Seasons Hotel and Private Residences Jeddah',
+      points: [
+        'Lead BIM implementation and resolve clashes in Revizto and Navisworks before drawings reach site.',
+        'Author AIM, PIM, LOIN, BEP and Revit templates; audit subcontractor models against ISO 19650.',
+        'Automate workflows with pyRevit, DiRoots, BIM Interoperability Tools and Dynamo.',
+      ],
+    },
+    {
+      role: 'BIM Engineer',
+      company: 'CONSOL Arabia Contracting (ALEC Fit-out)',
+      place: 'Riyadh, KSA',
+      period: 'Jun 2025 – Feb 2026',
+      project: 'ILMI Science & Innovation Center, MISK City',
+      points: [
+        'Developed LOD 400 architectural models, cutting rework by 25% through clash resolution.',
+        'Built Dynamo scripts for sheet creation and export, improving efficiency by 60%.',
+        'Managed MIDP and TIDP and produced 5D quantity take-offs and BOQs.',
+      ],
+    },
+    {
+      role: 'BIM Specialist (Freelance)',
+      company: 'Mint Creative Production',
+      place: 'Tabuk, KSA',
+      period: 'Jan 2025 – Jun 2025',
+      project: 'Tabuk Entertainment Complex',
+      points: [
+        'Created parametric Revit families with 95% model accuracy.',
+        'Resolved 200+ clashes in Navisworks ahead of schedule.',
+      ],
+    },
+    {
+      role: 'BIM Engineer',
+      company: 'DMS Management Group',
+      place: 'Florida, USA (remote)',
+      period: 'Jul 2023 – Nov 2024',
+      project: 'Education and public-safety projects in California',
+      points: [
+        'Modelled light gauge steel framing to LOD 400 with MWF Pro Metal.',
+        'Coordinated with GCs and subcontractors through BIM 360/ACC, Procore and Revizto.',
+      ],
+    },
+    {
+      role: 'BIM Engineer',
+      company: 'Proctor Global Design (for Rabiah Garden Co.)',
+      place: 'Islamabad / Riyadh',
+      period: 'Jan 2022 – May 2023',
+      project: 'Six Flags Qiddiya · NEOM HAQL',
+      points: [
+        'Delivered LOD 400 architectural, structural and landscape models aligned with the BEP.',
+        'Created 4D schedules in Navisworks to visualise construction sequencing.',
+      ],
+    },
+    {
+      role: 'BIM Engineer',
+      company: 'Innovative Design and Consultant',
+      place: 'Pakistan',
+      period: 'Dec 2019 – Nov 2021',
+      project: 'NEOM Labour Housing · J7 Emporium · J7 ICON & Radisson Blu',
+      points: [
+        'Produced structural and architectural drawings and reinforcement detailing.',
+        'Prepared quantity take-offs within 5% cost-estimate variance.',
+      ],
+    },
+  ],
+  education: [
+    { title: 'Post Graduate Diploma in BIM & Construction Management', org: 'CanBIM, Canada', note: '91%' },
+    { title: 'Bachelor of Civil Engineering', org: 'UET Peshawar', note: '88%' },
+    { title: 'NEBOSH Health & Safety in Construction', org: 'NEBOSH, UK', note: '85%' },
+  ],
+  software: [
+    'Autodesk Revit',
+    'Navisworks',
+    'AutoCAD',
+    'Civil 3D',
+    'Dynamo',
+    'pyRevit',
+    'DiRoots',
+    'BIM Interoperability Tools',
+    'Revizto',
+    'ACC / BIM 360',
+    'Synchro 4D',
+    'Aconex',
+    'Procore',
+  ],
+};

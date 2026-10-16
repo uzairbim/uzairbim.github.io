@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../lib/url';
+interface Props { post: CollectionEntry<'posts'>; }
+const { post } = Astro.props;
+const d = post.data;
+const date = d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<a class="card post-card" href={url(`/posts/${post.id}/`)}>
+  {d.cover && <img src={url(d.cover)} alt="" loading="lazy" />}
+  <div class="body">
+    <time datetime={d.date.toISOString()}>{date}</time>
+    <h3>{d.title}</h3>
+    <p>{d.description}</p>
+    <ul class="chips">{d.tags.map((t) => <li class="chip">{t}</li>)}</ul>
+  </div>
+</a>
+
+<style>
+  img { aspect-ratio: 16 / 9; object-fit: cover; }
+  .body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  time { font-size: .8rem; color: var(--accent-ink); font-weight: 600; margin-bottom: 6px; }
+  h3 { color: var(--ink); }
+  p { color: var(--ink-2); font-size: .94rem; flex: 1; }
+</style>

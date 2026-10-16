@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/profile';
+import { url } from '../lib/url';
+const items = [
+  { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+  { label: 'LinkedIn', value: 'linkedin.com/in/uzair-bim', href: profile.linkedin },
+  { label: 'CV', value: 'Download PDF', href: url(profile.cv) },
+  { label: 'Location', value: `${profile.location} · ${profile.availability}` },
+];
+---
+<Base title="Contact" description={`Get in touch with ${profile.name}.`}>
+  <section class="page-hero blueprint">
+    <div class="container">
+      <div class="eyebrow">Contact</div>
+      <h1>Let's work together</h1>
+      <p>Open to BIM coordination and BIM engineering roles in Saudi Arabia and remote project work.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        {items.map((i) => i.href ? (
+          <a class="card c" href={i.href} target={i.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener">
+            <span class="k">{i.label}</span><span class="v">{i.value}</span>
+          </a>
+        ) : (
+          <div class="card c"><span class="k">{i.label}</span><span class="v">{i.value}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .c { padding: 24px; gap: 6px; }
+  .k { font-size: .74rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 600; }
+  .v { font-weight: 600; font-size: 1.05rem; color: var(--ink); overflow-wrap: anywhere; }
+</style>

@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Cover from './Cover.astro';
+import { url } from '../lib/url';
+interface Props { item: CollectionEntry<'work'>; }
+const { item } = Astro.props;
+const d = item.data;
+---
+<a class="card work-card" href={url(`/work/${item.id}/`)} data-category={d.category}>
+  <Cover src={d.cover} alt={d.title} label={d.category} />
+  <div class="body">
+    <div class="meta">{[d.location, d.period].filter(Boolean).join(' · ')}</div>
+    <h3>{d.title}</h3>
+    <p>{d.summary}</p>
+    <ul class="chips">
+      {d.lod && <li class="chip lod">{d.lod}</li>}
+      {d.pdf && <li class="chip">PDF</li>}
+      {d.software.slice(0, 3).map((s) => <li class="chip">{s}</li>)}
+    </ul>
+  </div>
+</a>
+
+<style>
+  .body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+  .meta { font-size: .8rem; color: var(--muted); margin-bottom: 6px; }
+  h3 { color: var(--ink); }
+  p { color: var(--ink-2); font-size: .94rem; flex: 1; }
+  .lod { background: color-mix(in srgb, var(--accent) 14%, transparent); border-color: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--accent-ink); font-weight: 600; }
+</style>

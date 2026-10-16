@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../../components/WorkCard.astro';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const categories = [...new Set(work.map((w) => w.data.category))];
+---
+<Base title="Work" description="BIM models, shop drawings and coordination work samples.">
+  <section class="page-hero blueprint">
+    <div class="container">
+      <div class="eyebrow">Portfolio</div>
+      <h1>Work samples</h1>
+      <p>Models, shop drawings and coordination deliverables from projects in Saudi Arabia, the USA and Pakistan. Open any project to see images and PDF drawings.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="filters" role="toolbar" aria-label="Filter by category">
+        <button class="filter active" data-filter="all">All</button>
+        {categories.map((c) => <button class="filter" data-filter={c}>{c}</button>)}
+      </div>
+      <div class="grid">{work.map((item) => <WorkCard item={item} />)}</div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const cards = document.querySelectorAll<HTMLElement>('.work-card');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      buttons.forEach((x) => x.classList.toggle('active', x === b));
+      const f = b.dataset.filter;
+      cards.forEach((c) => { c.style.display = f === 'all' || c.dataset.category === f ? '' : 'none'; });
+    }),
+  );
+</script>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .filter { font: inherit; font-size: .9rem; font-weight: 500; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); cursor: pointer; }
+  .filter:hover { border-color: var(--accent); }
+  .filter.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+</style>

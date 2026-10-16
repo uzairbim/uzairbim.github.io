@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/profile';
+import { url } from '../lib/url';
+
+const entries = (await getCollection('certificates')).sort((a, b) => a.data.order - b.data.order);
+const certs = await Promise.all(entries.map(async (c) => ({ ...c, Content: (await render(c)).Content })));
+---
+<Base title="Certificates" description="Professional certifications in BIM, information management and construction.">
+  <section class="page-hero blueprint">
+    <div class="container">
+      <div class="eyebrow">Certificates</div>
+      <h1>Certifications &amp; training</h1>
+      <p>Professional certifications in BIM, ISO 19650 information management, coordination tools and construction safety. Open any certificate to view the PDF.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        {certs.map(({ data: d, Content }) => (
+          <article class="card cert">
+            {d.image && (
+              <a href={url(d.pdf || d.image)} target="_blank" rel="noopener"><img src={url(d.image)} alt={d.title} loading="lazy" /></a>
+            )}
+            <div class="body">
+              <div class="issuer">{d.issuer}{d.date && <span> · {d.date}</span>}</div>
+              <h3>{d.title}</h3>
+              <div class="desc"><Content /></div>
+              <div class="actions">
+                {d.pdf && <a class="btn btn-outline" href={url(d.pdf)} target="_blank" rel="noopener">View certificate (PDF)</a>}
+                {d.link && <a class="link-arrow" href={d.link} target="_blank" rel="noopener">Verify →</a>}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="more muted">
+        More certificates are in my <a href={profile.certificatesLink} target="_blank" rel="noopener">certificate folder</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cert img { aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); background: #fff; }
+  .body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  .issuer { font-size: .8rem; font-weight: 600; color: var(--accent-ink); margin-bottom: 6px; }
+  .desc { color: var(--ink-2); font-size: .94rem; flex: 1; }
+  .desc :global(p) { margin: 0 0 .6em; }
+  .actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .more { margin-top: 32px; }
+  .more a { color: var(--accent-ink); }
+</style>

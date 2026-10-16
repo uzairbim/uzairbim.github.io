@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+const posts = (await getCollection('posts', (p) => !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Posts" description="Notes on BIM coordination, automation and project delivery.">
+  <section class="page-hero blueprint">
+    <div class="container">
+      <div class="eyebrow">Posts</div>
+      <h1>Notes from the field</h1>
+      <p>Thoughts on BIM coordination, automation, standards and the tools I use every day.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="grid">{posts.map((p) => <PostCard post={p} />)}</div>
+    </div>
+  </section>
+</Base>
