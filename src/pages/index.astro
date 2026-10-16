@@ -22,6 +22,7 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
         <p class="lede">{profile.tagline}</p>
         <div class="cta">
           <a class="btn btn-primary" href={url('/work/')}>View my work</a>
+          <a class="btn btn-ghost" href={profile.portfolioLink} target="_blank" rel="noopener">Full portfolio</a>
           <a class="btn btn-ghost" href={url(profile.cv)} target="_blank" rel="noopener">Download CV</a>
           <a class="btn btn-ghost" href={profile.linkedin} target="_blank" rel="noopener">LinkedIn</a>
         </div>

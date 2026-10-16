@@ -9,7 +9,11 @@ export const profile = {
   credential: 'CanBIM Certified',
   email: 'engr.uzairofficial@gmail.com',
   linkedin: 'https://www.linkedin.com/in/uzair-bim-99070b181',
-  cv: '/cv/Uzair-Ur-Rehman-CV.pdf',
+  // These two files live in the "downloads" folder of the website and are NOT rebuilt,
+  // so you can replace them yourself (keep the same file names) and just Commit + Push.
+  cv: '/downloads/Uzair-Ur-Rehman-CV.pdf',
+  // Canva share link: always shows the latest version of your Canva design.
+  portfolioLink: 'https://canva.link/br3h9qou92mbvsf',
   certificatesLink:
     'https://drive.google.com/drive/folders/1gEnsfeMzxnoIgOD_vvTEDHrFduvBCbLC?usp=sharing',
   photo: '', // e.g. '/uploads/profile.jpg'

@@ -60,6 +60,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           <a href={`mailto:${profile.email}`}>Email</a>
           <a href={profile.linkedin} target="_blank" rel="noopener">LinkedIn</a>
           <a href={url(profile.cv)} target="_blank" rel="noopener">CV</a>
+          <a href={profile.portfolioLink} target="_blank" rel="noopener">Portfolio</a>
         </div>
       </div>
       <div class="container copy muted">© {new Date().getFullYear()} {profile.name}</div>
