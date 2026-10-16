@@ -1,4 +1,5 @@
 ---
+cover: /uploads/six-flags-qiddiya.jpg
 title: Six Flags Qiddiya Theme Park
 summary: LOD 400 landscape modelling for one of the Kingdom's flagship giga-project theme parks.
 client: Proctor Global Design for Rabiah Garden Co.
