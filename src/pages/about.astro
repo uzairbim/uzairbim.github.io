@@ -9,7 +9,7 @@ const certs = (await getCollection('certificates')).sort((a, b) => a.data.order 
   <section class="page-hero blueprint">
     <div class="container">
       <div class="eyebrow">About</div>
-      <h1>Civil engineer, BIM coordinator</h1>
+      <h1>Civil Engineer <span class="sub">(BIM Engineer / BIM Coordinator)</span></h1>
       <p>{profile.tagline}</p>
     </div>
   </section>
@@ -72,6 +72,7 @@ const certs = (await getCollection('certificates')).sort((a, b) => a.data.order 
 </Base>
 
 <style>
+  h1 .sub { display: block; font-size: .55em; font-weight: 700; color: #d6e0ea; margin-top: .25em; }
   .about-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 56px; }
   .prose p { font-size: 1.08rem; color: var(--ink-2); }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }

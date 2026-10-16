@@ -87,7 +87,7 @@ a.card:hover { transform: translateY(-3px); border-color: var(--accent); }
 .prose h2 { font-size: 1.3rem; margin-top: 1.8em; }
 .prose ul { padding-left: 1.2em; }
 .prose li { margin-bottom: .4em; }
-.prose a { color: var(--accent-ink); }
+.prose a:not(.btn) { color: var(--accent-ink); }
 .prose img { border-radius: 10px; margin: 1.5em 0; }
 
 .page-hero { background: var(--navy); color: #fff; padding: 64px 0 56px; position: relative; overflow: hidden; }
