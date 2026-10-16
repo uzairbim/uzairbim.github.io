@@ -6,7 +6,7 @@ export const profile = {
     'I coordinate multidisciplinary BIM models for high-rise and fit-out projects across Saudi Arabia, from LOD 400 modelling to clash-free shop drawings.',
   location: 'Jeddah, Saudi Arabia',
   availability: 'Transferable Iqama',
-  credential: 'CanBIM Certified',
+  credential: 'ISO-19650 Certified',
   email: 'engr.uzairofficial@gmail.com',
   linkedin: 'https://www.linkedin.com/in/uzair-bim-99070b181',
   // These two files live in the "downloads" folder of the website and are NOT rebuilt,
