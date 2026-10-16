@@ -4,10 +4,12 @@ import { profile } from '../data/profile';
 import { url } from '../lib/url';
 const items = [
   { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+  { label: 'Phone / WhatsApp', value: profile.phone, href: profile.whatsapp },
   { label: 'LinkedIn', value: 'linkedin.com/in/uzair-bim', href: profile.linkedin },
   { label: 'CV', value: 'Download PDF', href: url(profile.cv) },
   { label: 'Portfolio', value: 'View on Canva', href: profile.portfolioLink },
-  { label: 'Location', value: `${profile.location} · ${profile.availability}` },
+  { label: 'Location', value: profile.location },
+  { label: 'Availability', value: [profile.availability, `Notice period: ${profile.noticePeriod}`] },
 ];
 ---
 <Base title="Contact" description={`Get in touch with ${profile.name}.`}>
@@ -26,7 +28,7 @@ const items = [
             <span class="k">{i.label}</span><span class="v">{i.value}</span>
           </a>
         ) : (
-          <div class="card c"><span class="k">{i.label}</span><span class="v">{i.value}</span></div>
+          <div class="card c"><span class="k">{i.label}</span>{[i.value].flat().map((v) => <span class="v">{v}</span>)}</div>
         ))}
       </div>
     </div>
@@ -34,8 +36,8 @@ const items = [
 </Base>
 
 <style>
-  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
   .c { padding: 24px; gap: 6px; }
   .k { font-size: .74rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 600; }
-  .v { font-weight: 600; font-size: 1.05rem; color: var(--ink); overflow-wrap: anywhere; }
+  .v { font-weight: 600; font-size: 1rem; color: var(--ink); overflow-wrap: break-word; }
 </style>
