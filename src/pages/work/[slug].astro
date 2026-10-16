@@ -29,7 +29,7 @@ const facts = [
   <section class="section">
     <div class="container layout">
       <div class="main">
-        <div class="hero-img"><Cover src={d.cover} alt={d.title} label="Project image coming soon" tall /></div>
+        <div class="hero-img"><Cover src={d.cover} alt={d.title} label={d.cover ? undefined : "Project image coming soon"} tall /></div>
         <div class="prose"><Content /></div>
 
         {d.images.length > 0 && (

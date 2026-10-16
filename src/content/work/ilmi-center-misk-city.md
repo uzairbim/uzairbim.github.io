@@ -1,4 +1,5 @@
 ---
+cover: /uploads/ilmi-center-misk-city.jpg
 title: ILMI Science & Innovation Center, MISK City
 summary: LOD 400 architectural and interior fit-out models and shop drawings for a science centre in Riyadh.
 client: CONSOL Arabia Contracting (ALEC Fit-out)

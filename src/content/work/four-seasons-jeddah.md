@@ -1,4 +1,5 @@
 ---
+cover: /uploads/four-seasons-jeddah.jpg
 title: Four Seasons Hotel and Private Residences Jeddah
 summary: BIM coordination for the interior fit-out of a luxury hotel and residential tower, resolving clashes before drawings reach site.
 client: Havelock One (Interior Fit-out)

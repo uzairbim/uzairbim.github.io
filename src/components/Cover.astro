@@ -5,7 +5,10 @@ interface Props { src?: string; alt: string; label?: string; tall?: boolean; }
 const { src, alt, label, tall = false } = Astro.props;
 ---
 {src ? (
-  <img class:list={['cover', { tall }]} src={url(src)} alt={alt} loading="lazy" />
+  <div class:list={['cover', 'photo', { tall }]}>
+    <img src={url(src)} alt={alt} loading="lazy" />
+    {label && <span>{label}</span>}
+  </div>
 ) : (
   <div class:list={['cover', 'placeholder', 'blueprint', { tall }]} role="img" aria-label={alt}>
     <svg viewBox="0 0 240 140" aria-hidden="true">
@@ -31,6 +34,10 @@ const { src, alt, label, tall = false } = Astro.props;
 <style>
   .cover { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--navy); }
   .cover.tall { aspect-ratio: 16 / 8; }
+  .photo { position: relative; overflow: hidden; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,22,38,.75), rgba(10,22,38,0) 45%); }
+  .photo span { position: absolute; z-index: 1; left: 14px; bottom: 12px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #fff; font-weight: 600; }
   .placeholder { position: relative; display: grid; place-items: center; color: rgba(217, 138, 31, .75); background-color: var(--navy-2); }
   .placeholder svg { width: 62%; max-width: 360px; }
   .placeholder span { position: absolute; left: 14px; bottom: 12px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9fb3c8; font-weight: 600; }

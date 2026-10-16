@@ -1,4 +1,5 @@
 ---
+cover: /uploads/tabuk-entertainment-complex.jpg
 title: Tabuk Entertainment Complex
 summary: Parametric families, clash detection and shop drawings for a large entertainment venue in northern Saudi Arabia.
 client: Mint Creative Production · Saudi Entertainment Ventures
