@@ -13,13 +13,14 @@ const sections = [
   ...groupNames.map((g) => ({ title: g, items: certs.filter((c) => c.data.group === g), grouped: true })),
   { title: groupNames.length ? 'Other certifications' : '', items: certs.filter((c) => !c.data.group), grouped: false },
 ].filter((s) => s.items.length);
-// Groups with a single certificate sit side by side in one row, each with its own heading
+// Small groups (1 or 2 certificates) share a 3-column row, each with its own heading
 const blocks = [];
 for (const s of sections) {
-  const solo = s.grouped && s.items.length === 1;
+  const small = s.grouped && s.items.length <= 2;
   const last = blocks[blocks.length - 1];
-  if (solo && last?.solo) last.sections.push(s);
-  else blocks.push(solo ? { solo: true, sections: [s] } : { solo: false, section: s });
+  const used = last?.solo ? last.sections.reduce((n, x) => n + x.items.length, 0) : 0;
+  if (small && last?.solo && used + s.items.length <= 3) last.sections.push(s);
+  else blocks.push(small ? { solo: true, sections: [s] } : { solo: false, section: s });
 }
 ---
 <Base title="Certificates" description="Professional certifications in BIM, information management and construction.">
@@ -35,9 +36,9 @@ for (const s of sections) {
       {blocks.map((b) => b.solo ? (
         <div class="cert-group solo-row">
           {b.sections.map((s) => (
-            <div class="solo">
+            <div class="solo" style={`--span:${s.items.length}`}>
               <h2 class="group-title">{s.title}</h2>
-              {s.items.map((c) => <CertCard cert={c} />)}
+              <div class="solo-cards">{s.items.map((c) => <CertCard cert={c} />)}</div>
             </div>
           ))}
         </div>
@@ -64,10 +65,13 @@ for (const s of sections) {
   .grid.pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (max-width: 760px) { .grid.pair { grid-template-columns: 1fr; } }
   .solo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-  .solo { display: flex; flex-direction: column; }
-  .solo :global(.cert) { flex: 1; }
-  @media (max-width: 960px) { .solo-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 640px) { .solo-row { grid-template-columns: 1fr; } }
+  .solo { display: flex; flex-direction: column; grid-column: span var(--span); }
+  .solo-cards { flex: 1; display: grid; gap: 22px; grid-template-columns: repeat(var(--span), minmax(0, 1fr)); }
+  @media (max-width: 960px) {
+    .solo-row { grid-template-columns: 1fr; }
+    .solo { grid-column: auto; }
+    .solo-cards { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  }
   .more { margin-top: 32px; }
   .more a { color: var(--accent-ink); }
 </style>
