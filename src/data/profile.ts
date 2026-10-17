@@ -3,7 +3,7 @@ export const profile = {
   name: 'Uzair Ur Rehman',
   title: 'BIM Coordinator · Civil Engineer',
   tagline:
-    'I coordinate multidisciplinary BIM models for high-rise and fit-out projects across Saudi Arabia, from LOD 400 modelling to clash-free shop drawings.',
+    'Civil Engineer and ISO 19650-certified BIM professional with a Postgraduate Diploma in BIM and Construction Management and hands-on experience in high-rise building projects. Skilled in BIM modeling, multidisciplinary coordination, shop drawing preparation, and on-site coordination, with experience supporting project delivery from the modeling stage through coordination, construction documentation, and site execution. Committed to maintaining model accuracy, resolving design clashes, and ensuring alignment between design intent and construction requirements.',
   location: 'Jeddah, Saudi Arabia',
   availability: 'Transferable Iqama',
   noticePeriod: '30 days',
