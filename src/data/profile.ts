@@ -32,15 +32,22 @@ export const profile = {
   ],
   experience: [
     {
-      role: 'BIM Coordinator',
+      role: 'BIM Engineer',
       company: 'Havelock One (Interior Fit-out)',
       place: 'Jeddah, KSA',
       period: 'Feb 2026 – Present',
       project: 'Four Seasons Hotel and Private Residences Jeddah',
       points: [
-        'Lead BIM implementation and resolve clashes in Revizto and Navisworks before drawings reach site.',
-        'Author AIM, PIM, LOIN, BEP and Revit templates; audit subcontractor models against ISO 19650.',
-        'Automate workflows with pyRevit, DiRoots, BIM Interoperability Tools and Dynamo.',
+        'Playing a key role in implementing BIM on the project.',
+        'Creating LOD 400 and LOD 500 models (red-line markups).',
+        'Resolving clashes in Revizto and Navisworks before drawings are implemented on site by the site engineers.',
+        'Creating BIM models from CAD drawings.',
+        'Creating the AIM (Asset Information Model) and PIM (Project Information Model).',
+        'Developing BIM models in line with the BEP.',
+        'Using pyRevit, DiRoots, Dynamo and other automation tools to streamline workflows.',
+        'Collaborating with designers, site engineers and team members to increase productivity and maintain the project baseline.',
+        'Weekly submission of BIM models via ACC, Aconex and Revizto.',
+        'Weekly BIM progress presentations to the Project Manager.',
       ],
     },
     {

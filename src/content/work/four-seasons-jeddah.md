@@ -5,7 +5,7 @@ summary: BIM coordination for the interior fit-out of a luxury hotel and residen
 client: Havelock One (Interior Fit-out)
 location: Jeddah, Saudi Arabia
 period: 2026 – Present
-role: BIM Coordinator
+role: BIM Engineer
 scope: Interior fit-out
 lod: LOD 400
 category: Hospitality
