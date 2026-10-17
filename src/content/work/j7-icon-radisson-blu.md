@@ -1,4 +1,5 @@
 ---
+cover: /uploads/j7-icon-radisson-blu.jpg
 title: J7 ICON Mall & Radisson Blu Hotel
 summary: Structural and architectural models and construction drawings for a mixed-use high-rise in Islamabad.
 client: Innovative Design and Consultant
