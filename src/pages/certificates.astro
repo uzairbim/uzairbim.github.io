@@ -26,7 +26,7 @@ const sections = [
       {sections.map((s) => (
         <div class="cert-group">
           {s.title && <h2 class="group-title">{s.title}</h2>}
-          <div class:list={['grid', { pair: s.grouped }]}>
+          <div class:list={['grid', { pair: s.grouped && s.items.length % 2 === 0 }]}>
             {s.items.map(({ data: d, Content }) => (
               <article class="card cert">
                 {d.image && (

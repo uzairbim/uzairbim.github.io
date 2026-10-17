@@ -1,6 +1,11 @@
 ---
-title: Revizto Certification, Levels 1, 2 and 3
-issuer: Revizto Red Academy
-order: 2
+title: "Revizto Expert Level 1: Collaboration Essentials"
+issuer: Revizto
+date: 21 Mar 2025
+group: Revizto Certification
+image: /uploads/certificates/revizto-level-1.jpg
+order: 5
 ---
-Three levels of Revizto training covering issue tracking, clash coordination and model review for multidisciplinary BIM teams.
+Core Revizto collaboration: navigating federated models and sheets, creating and tracking issues, and sharing coordination views with the project team.
+
+Certificate no. C1169
