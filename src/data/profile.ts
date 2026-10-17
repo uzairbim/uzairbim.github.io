@@ -19,7 +19,7 @@ export const profile = {
   portfolioLink: 'https://canva.link/br3h9qou92mbvsf',
   certificatesLink:
     'https://drive.google.com/drive/folders/1gEnsfeMzxnoIgOD_vvTEDHrFduvBCbLC?usp=sharing',
-  photo: '/uploads/profile.png',
+  photo: '/uploads/profile-full.png',
   about: [
     'I am a civil engineer with more than five years of experience in Building Information Modelling, most of it on large projects in Saudi Arabia including hotels, high-rise buildings, entertainment venues and NEOM.',
     'My work covers BIM workflows, clash detection and 4D/5D BIM in line with ISO 19650 and BIMForum LOD standards. I lead multidisciplinary coordination between architecture, structure and MEP teams, and I build automation with Dynamo, pyRevit and DiRoots to make delivery faster and more consistent.',

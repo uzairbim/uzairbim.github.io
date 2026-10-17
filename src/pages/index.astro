@@ -98,10 +98,11 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
   .role { font-size: 1.2rem; font-weight: 600; color: #d6e0ea; margin-bottom: 18px; }
   .lede { color: #b8c6d6; font-size: 1.08rem; max-width: 56ch; }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .portrait { justify-self: end; }
-  .cutout { position: relative; width: 300px; height: 380px; display: flex; align-items: flex-end; justify-content: center; }
-  .cutout::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 82%; border-radius: 20px; background: radial-gradient(120% 90% at 50% 100%, rgba(217,138,31,.45), rgba(217,138,31,0) 60%), linear-gradient(160deg, #1d3d63, #0c1f36); border: 1px solid rgba(255,255,255,.14); }
-  .cutout img { position: relative; height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 12px 24px rgba(0,0,0,.45)); border-radius: 0 0 20px 20px; }
+  .portrait { justify-self: center; }
+  .cutout { position: relative; height: 470px; display: flex; align-items: flex-end; justify-content: center; margin: -40px 0 -56px; }
+  .cutout::before { content: ''; position: absolute; left: 50%; bottom: 0; width: 340px; height: 340px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, rgba(217,138,31,.28), rgba(217,138,31,0) 65%); }
+  .cutout::after { content: ''; position: absolute; left: 50%; bottom: -4px; width: 200px; height: 18px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(ellipse, rgba(0,0,0,.55), rgba(0,0,0,0) 70%); }
+  .cutout img { position: relative; z-index: 1; height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 10px 22px rgba(0,0,0,.4)); }
   .monogram { width: 280px; height: 320px; border-radius: 18px; object-fit: cover; border: 1px solid rgba(255,255,255,.14); }
   .monogram { display: grid; place-items: center; font-family: var(--display); font-size: 5rem; font-weight: 800; color: var(--accent); background: linear-gradient(160deg, var(--navy-2), var(--navy)); }
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 64px 0 0; border-top: 1px solid rgba(255,255,255,.12); }
@@ -118,7 +119,7 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
     .hero-grid, .two-col { grid-template-columns: 1fr; gap: 32px; }
     .portrait { justify-self: center; }
     .monogram { display: none; }
-    .cutout { width: 240px; height: 300px; }
+    .cutout { height: 380px; margin: 0; }
     .stats { grid-template-columns: repeat(2, 1fr); margin-top: 40px; }
   }
 </style>
