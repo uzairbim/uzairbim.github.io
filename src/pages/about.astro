@@ -29,9 +29,13 @@ const certs = (await getCollection('certificates')).sort((a, b) => a.data.order 
         <h3>Software</h3>
         <ul class="sw">{software.map((s) => (
           <li>
-            <span class="sw-icon" style={`background:${s.color}`} aria-hidden="true">
-              {s.path ? <svg viewBox="0 0 24 24"><path d={s.path} /></svg> : <span>{s.letters}</span>}
-            </span>
+            {s.img ? (
+              <img class="sw-logo" src={url(s.img)} alt="" width="28" height="28" loading="lazy" />
+            ) : (
+              <span class="sw-icon" style={`background:${s.color}`} aria-hidden="true">
+                {s.path ? <svg viewBox="0 0 24 24"><path d={s.path} /></svg> : <span>{s.letters}</span>}
+              </span>
+            )}
             {s.name}
           </li>
         ))}</ul>
@@ -83,6 +87,7 @@ const certs = (await getCollection('certificates')).sort((a, b) => a.data.order 
   .sw { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
   .sw li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--ink-2); }
   .sw-icon { flex: none; width: 26px; height: 26px; border-radius: 6px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: .72rem; letter-spacing: -.02em; }
+  .sw-logo { flex: none; width: 28px; height: 28px; object-fit: contain; margin: -1px; }
   .sw-icon svg { width: 17px; height: 17px; fill: #fff; }
   h1 .sub { display: block; font-size: .55em; font-weight: 700; color: #d6e0ea; margin-top: .25em; }
   .about-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 56px; }
