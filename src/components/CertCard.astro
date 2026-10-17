@@ -1,0 +1,31 @@
+---
+import { url } from '../lib/url';
+const { cert } = Astro.props;
+const d = cert.data;
+const Content = cert.Content;
+---
+<article class="card cert">
+  {d.image && (
+    <a class="thumb" href={url(d.pdf || d.image)} target="_blank" rel="noopener" title="Open full size"><img src={url(d.image)} alt={`${d.title} certificate`} loading="lazy" /></a>
+  )}
+  <div class="body">
+    <div class="issuer">{d.issuer}{d.date && <span> · {d.date}</span>}</div>
+    <h3>{d.title}</h3>
+    <div class="desc"><Content /></div>
+    <div class="actions">
+      {d.pdf && <a class="btn btn-outline" href={url(d.pdf)} target="_blank" rel="noopener">View certificate (PDF)</a>}
+      {!d.pdf && d.image && <a class="link-arrow" href={url(d.image)} target="_blank" rel="noopener">View full size →</a>}
+      {d.link && <a class="link-arrow" href={d.link} target="_blank" rel="noopener">Verify →</a>}
+    </div>
+  </div>
+</article>
+
+<style>
+  .thumb { display: block; background: #fff; border-bottom: 1px solid var(--line); }
+  .cert img { display: block; width: 100%; aspect-ratio: 1.414 / 1; object-fit: contain; background: #fff; }
+  .body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  .issuer { font-size: .8rem; font-weight: 600; color: var(--accent-ink); margin-bottom: 6px; }
+  .desc { color: var(--ink-2); font-size: .94rem; flex: 1; }
+  .desc :global(p) { margin: 0 0 .6em; }
+  .actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+</style>

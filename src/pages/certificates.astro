@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { profile } from '../data/profile';
 import { url } from '../lib/url';
+import CertCard from '../components/CertCard.astro';
 
 const entries = (await getCollection('certificates')).sort((a, b) => a.data.order - b.data.order);
 const certs = await Promise.all(entries.map(async (c) => ({ ...c, Content: (await render(c)).Content })));
@@ -12,6 +13,14 @@ const sections = [
   ...groupNames.map((g) => ({ title: g, items: certs.filter((c) => c.data.group === g), grouped: true })),
   { title: groupNames.length ? 'Other certifications' : '', items: certs.filter((c) => !c.data.group), grouped: false },
 ].filter((s) => s.items.length);
+// Groups with a single certificate sit side by side in one row, each with its own heading
+const blocks = [];
+for (const s of sections) {
+  const solo = s.grouped && s.items.length === 1;
+  const last = blocks[blocks.length - 1];
+  if (solo && last?.solo) last.sections.push(s);
+  else blocks.push(solo ? { solo: true, sections: [s] } : { solo: false, section: s });
+}
 ---
 <Base title="Certificates" description="Professional certifications in BIM, information management and construction.">
   <section class="page-hero blueprint">
@@ -23,30 +32,25 @@ const sections = [
   </section>
   <section class="section">
     <div class="container">
-      {sections.map((s) => (
+      {blocks.map((b) => b.solo ? (
+        <div class="cert-group solo-row">
+          {b.sections.map((s) => (
+            <div class="solo">
+              <h2 class="group-title">{s.title}</h2>
+              {s.items.map((c) => <CertCard cert={c} />)}
+            </div>
+          ))}
+        </div>
+      ) : ((s) => (
         <div class="cert-group">
           {s.title && <h2 class="group-title">{s.title}</h2>}
           <div class:list={['grid', { pair: s.grouped && s.items.length % 2 === 0 }]}>
-            {s.items.map(({ data: d, Content }) => (
-              <article class="card cert">
-                {d.image && (
-                  <a class="thumb" href={url(d.pdf || d.image)} target="_blank" rel="noopener" title="Open full size"><img src={url(d.image)} alt={`${d.title} certificate`} loading="lazy" /></a>
-                )}
-                <div class="body">
-                  <div class="issuer">{d.issuer}{d.date && <span> · {d.date}</span>}</div>
-                  <h3>{d.title}</h3>
-                  <div class="desc"><Content /></div>
-                  <div class="actions">
-                    {d.pdf && <a class="btn btn-outline" href={url(d.pdf)} target="_blank" rel="noopener">View certificate (PDF)</a>}
-                    {!d.pdf && d.image && <a class="link-arrow" href={url(d.image)} target="_blank" rel="noopener">View full size →</a>}
-                    {d.link && <a class="link-arrow" href={d.link} target="_blank" rel="noopener">Verify →</a>}
-                  </div>
-                </div>
-              </article>
+            {s.items.map((c) => (
+              <CertCard cert={c} />
             ))}
           </div>
         </div>
-      ))}
+      ))(b.section))}
       <p class="more muted">
         More certificates are in my <a href={profile.certificatesLink} target="_blank" rel="noopener">certificate folder</a>.
       </p>
@@ -59,13 +63,11 @@ const sections = [
   .group-title { margin: 0 0 20px; padding-left: 14px; border-left: 4px solid var(--accent); }
   .grid.pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (max-width: 760px) { .grid.pair { grid-template-columns: 1fr; } }
-  .thumb { display: block; background: #fff; border-bottom: 1px solid var(--line); }
-  .cert img { display: block; width: 100%; aspect-ratio: 1.414 / 1; object-fit: contain; background: #fff; }
-  .body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-  .issuer { font-size: .8rem; font-weight: 600; color: var(--accent-ink); margin-bottom: 6px; }
-  .desc { color: var(--ink-2); font-size: .94rem; flex: 1; }
-  .desc :global(p) { margin: 0 0 .6em; }
-  .actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .solo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  .solo { display: flex; flex-direction: column; }
+  .solo :global(.cert) { flex: 1; }
+  @media (max-width: 960px) { .solo-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .solo-row { grid-template-columns: 1fr; } }
   .more { margin-top: 32px; }
   .more a { color: var(--accent-ink); }
 </style>
