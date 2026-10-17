@@ -49,6 +49,8 @@ const certificates = defineCollection({
     // Optional preview image of the certificate (JPG or PNG)
     image: z.string().optional(),
     link: z.string().optional(),
+    // Certificates with the same group are shown together under that heading
+    group: z.string().optional(),
     order: z.number().default(100),
   }),
 });

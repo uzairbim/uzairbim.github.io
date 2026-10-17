@@ -6,6 +6,12 @@ import { url } from '../lib/url';
 
 const entries = (await getCollection('certificates')).sort((a, b) => a.data.order - b.data.order);
 const certs = await Promise.all(entries.map(async (c) => ({ ...c, Content: (await render(c)).Content })));
+// Grouped certificates (e.g. ISO 19650) first, then everything else
+const groupNames = [...new Set(certs.map((c) => c.data.group).filter(Boolean))];
+const sections = [
+  ...groupNames.map((g) => ({ title: g, items: certs.filter((c) => c.data.group === g), grouped: true })),
+  { title: groupNames.length ? 'Other certifications' : '', items: certs.filter((c) => !c.data.group), grouped: false },
+].filter((s) => s.items.length);
 ---
 <Base title="Certificates" description="Professional certifications in BIM, information management and construction.">
   <section class="page-hero blueprint">
@@ -17,24 +23,30 @@ const certs = await Promise.all(entries.map(async (c) => ({ ...c, Content: (awai
   </section>
   <section class="section">
     <div class="container">
-      <div class="grid">
-        {certs.map(({ data: d, Content }) => (
-          <article class="card cert">
-            {d.image && (
-              <a href={url(d.pdf || d.image)} target="_blank" rel="noopener"><img src={url(d.image)} alt={d.title} loading="lazy" /></a>
-            )}
-            <div class="body">
-              <div class="issuer">{d.issuer}{d.date && <span> · {d.date}</span>}</div>
-              <h3>{d.title}</h3>
-              <div class="desc"><Content /></div>
-              <div class="actions">
-                {d.pdf && <a class="btn btn-outline" href={url(d.pdf)} target="_blank" rel="noopener">View certificate (PDF)</a>}
-                {d.link && <a class="link-arrow" href={d.link} target="_blank" rel="noopener">Verify →</a>}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+      {sections.map((s) => (
+        <div class="cert-group">
+          {s.title && <h2 class="group-title">{s.title}</h2>}
+          <div class:list={['grid', { pair: s.grouped }]}>
+            {s.items.map(({ data: d, Content }) => (
+              <article class="card cert">
+                {d.image && (
+                  <a class="thumb" href={url(d.pdf || d.image)} target="_blank" rel="noopener" title="Open full size"><img src={url(d.image)} alt={`${d.title} certificate`} loading="lazy" /></a>
+                )}
+                <div class="body">
+                  <div class="issuer">{d.issuer}{d.date && <span> · {d.date}</span>}</div>
+                  <h3>{d.title}</h3>
+                  <div class="desc"><Content /></div>
+                  <div class="actions">
+                    {d.pdf && <a class="btn btn-outline" href={url(d.pdf)} target="_blank" rel="noopener">View certificate (PDF)</a>}
+                    {!d.pdf && d.image && <a class="link-arrow" href={url(d.image)} target="_blank" rel="noopener">View full size →</a>}
+                    {d.link && <a class="link-arrow" href={d.link} target="_blank" rel="noopener">Verify →</a>}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
       <p class="more muted">
         More certificates are in my <a href={profile.certificatesLink} target="_blank" rel="noopener">certificate folder</a>.
       </p>
@@ -43,7 +55,12 @@ const certs = await Promise.all(entries.map(async (c) => ({ ...c, Content: (awai
 </Base>
 
 <style>
-  .cert img { aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); background: #fff; }
+  .cert-group + .cert-group { margin-top: 48px; }
+  .group-title { margin: 0 0 20px; padding-left: 14px; border-left: 4px solid var(--accent); }
+  .grid.pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .grid.pair { grid-template-columns: 1fr; } }
+  .thumb { display: block; background: #fff; border-bottom: 1px solid var(--line); }
+  .cert img { display: block; width: 100%; aspect-ratio: 1.414 / 1; object-fit: contain; background: #fff; }
   .body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
   .issuer { font-size: .8rem; font-weight: 600; color: var(--accent-ink); margin-bottom: 6px; }
   .desc { color: var(--ink-2); font-size: .94rem; flex: 1; }
