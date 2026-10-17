@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: NEOM Base Economy Assets, HAQL
 summary: Design-and-build structural and architectural models at LOD 400 for NEOM.
 client: Proctor Global Design for Rabiah Garden Co.

@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: California Education & Public-Safety Projects
 summary: Light gauge steel framing and structural shop drawings for three projects in California.
 client: DMS Management Group

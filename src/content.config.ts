@@ -20,6 +20,8 @@ const work = defineCollection({
     images: z.array(z.string()).default([]),
     pdf: z.string().optional(),
     featured: z.boolean().default(false),
+    // Set to true to hide a project from the site without deleting it
+    hidden: z.boolean().default(false),
     order: z.number().default(100),
   }),
 });

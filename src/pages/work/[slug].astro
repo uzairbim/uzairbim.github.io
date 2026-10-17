@@ -5,7 +5,7 @@ import Cover from '../../components/Cover.astro';
 import { url } from '../../lib/url';
 
 export async function getStaticPaths() {
-  const work = await getCollection('work');
+  const work = await getCollection('work', (w) => !w.data.hidden);
   return work.map((item) => ({ params: { slug: item.id }, props: { item } }));
 }
 const { item } = Astro.props;

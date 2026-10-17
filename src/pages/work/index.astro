@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import WorkCard from '../../components/WorkCard.astro';
 import { profile } from '../../data/profile';
 
-const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const work = (await getCollection('work', (w) => !w.data.hidden)).sort((a, b) => a.data.order - b.data.order);
 const categories = [...new Set(work.map((w) => w.data.category))];
 ---
 <Base title="Work" description="BIM models, shop drawings and coordination work samples.">
