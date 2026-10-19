@@ -41,10 +41,12 @@ export const showcase: ShowcaseItem[] = [
     focus: 'center 40%',
   },
   {
-    title: 'BIM Automation with Dynamo and pyRevit',
-    caption: 'Add a screenshot of a Dynamo graph or pyRevit tool',
-    tags: ['Dynamo', 'pyRevit', 'DiRoots'],
-    text: 'Dynamo scripts that create sheets and export them to PDF and CAD with ISO 19650 naming, plus pyRevit and DiRoots tools that make delivery faster and more consistent.',
+    title: 'BIM Automation with Dynamo and Python',
+    image: '/uploads/showcase/dynamo-python-automation.jpg',
+    caption: 'Dynamo graph with a Python Script node reading level elevations',
+    tags: ['Dynamo', 'Python', 'Revit API'],
+    text: 'Dynamo graphs with custom Python scripts that work through the Revit API, including scripts that create sheets and export them to PDF and CAD with ISO 19650 naming.',
     link: { href: '/work/ilmi-center-misk-city/', label: 'View project details' },
+    focus: 'center',
   },
 ];
