@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import WorkCard from '../components/WorkCard.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import PostCard from '../components/PostCard.astro';
 import { profile } from '../data/profile';
 import { url } from '../lib/url';
@@ -11,20 +11,35 @@ const featured = work.filter((w) => w.data.featured).slice(0, 3);
 const posts = (await getCollection('posts', (p) => !p.data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+
+// Icons are simple line drawings, stroked in the accent colour.
+const services = [
+  { title: 'BIM coordination', text: 'Multidisciplinary clash detection and weekly coordination in Revizto and Navisworks.',
+    icon: '<rect x="3" y="3" width="11" height="11" rx="1.5"/><rect x="10" y="10" width="11" height="11" rx="1.5"/>' },
+  { title: 'Modeling & shop drawings', text: 'LOD 300–400 architectural, structural and fit-out models ready for site.',
+    icon: '<path d="M12 2.8 20.5 7.5v9L12 21.2 3.5 16.5v-9z"/><path d="M3.5 7.5 12 12.2l8.5-4.7M12 12.2v9"/>' },
+  { title: 'Information management', text: 'BEP, MIDP/TIDP, AIM and PIM set up to ISO 19650.',
+    icon: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M8 13.5h8M8 16.5h5"/>' },
+  { title: '4D / 5D & automation', text: 'Sequencing, quantity take-offs and Dynamo or pyRevit tools that save hours.',
+    icon: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>' },
+];
 ---
 <Base>
   <section class="hero blueprint">
     <div class="container hero-grid">
-      <div>
+      <div class="intro">
         <div class="eyebrow">{profile.credential} · {profile.location}</div>
         <h1>{profile.name}</h1>
         <p class="role">{profile.title}</p>
-        <p class="lede">{profile.tagline}</p>
+        <p class="headline">{profile.headline}</p>
+        <p class="lede">{profile.summary}</p>
         <div class="cta">
-          <a class="btn btn-primary" href={url('/work/')}>View my work</a>
-          <a class="btn btn-ghost" href={profile.portfolioLink} target="_blank" rel="noopener">Full portfolio</a>
+          <a class="btn btn-primary" href={url('/work/')}>View projects</a>
           <a class="btn btn-ghost" href={url(profile.cv)} target="_blank" rel="noopener">Download CV</a>
-          <a class="btn btn-ghost" href={profile.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="cta-links">
+          <a href={profile.portfolioLink} target="_blank" rel="noopener">Full portfolio <span aria-hidden="true">↗</span></a>
+          <a href={profile.linkedin} target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div class="portrait">
@@ -64,23 +79,26 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
         </div>
         <a class="link-arrow" href={url('/work/')}>All work →</a>
       </div>
-      <div class="grid">{featured.map((item) => <WorkCard item={item} />)}</div>
+      <div class="featured">{featured.map((item, i) => <FeatureCard item={item} wide={i === 0} />)}</div>
     </div>
   </section>
 
   <section class="section alt">
     <div class="container two-col">
-      <div>
+      <div class="do-intro">
         <div class="eyebrow">What I do</div>
         <h2>From LOD 400 models to clash-free site drawings</h2>
-        <p class="muted">{profile.about[1]}</p>
+        <p class="muted">I coordinate architecture, structure and MEP models to ISO 19650 and BIMForum LOD standards, and build automation that makes delivery faster and more consistent.</p>
         <a class="link-arrow" href={url('/about/')}>More about me →</a>
       </div>
       <ul class="services">
-        <li><strong>BIM coordination</strong><span>Multidisciplinary clash detection and weekly coordination in Revizto and Navisworks.</span></li>
-        <li><strong>Modelling &amp; shop drawings</strong><span>LOD 300–400 architectural, structural and fit-out models ready for site.</span></li>
-        <li><strong>Information management</strong><span>BEP, MIDP/TIDP, AIM and PIM set up to ISO 19650.</span></li>
-        <li><strong>4D / 5D &amp; automation</strong><span>Sequencing, quantity take-offs and Dynamo or pyRevit tools that save hours.</span></li>
+        {services.map((sv) => (
+          <li>
+            <span class="sv-icon" aria-hidden="true"><svg viewBox="0 0 24 24" set:html={sv.icon} /></span>
+            <strong>{sv.title}</strong>
+            <span class="sv-text">{sv.text}</span>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -102,12 +120,17 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
 </Base>
 
 <style>
-  .hero { background-color: var(--navy); color: #fff; padding: 80px 0 0; }
-  .hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: center; }
-  .hero .eyebrow { color: var(--accent); }
-  .hero h1 { margin-bottom: 6px; }
-  .role { font-size: 1.2rem; font-weight: 600; color: #d6e0ea; margin-bottom: 18px; }
-  .lede { color: #c3d0de; font-size: 1.06rem; line-height: 1.75; max-width: 66ch; text-align: justify; hyphens: none; overflow-wrap: normal; word-break: normal; text-wrap: pretty; margin: 0; padding-left: 18px; border-left: 3px solid var(--accent); }
+  .hero { background-color: var(--navy); color: #fff; padding: 88px 0 0; }
+  .hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; align-items: center; }
+  .intro { max-width: 640px; }
+  .hero .eyebrow { color: var(--accent); margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(2.1rem, 4.4vw, 3rem); margin-bottom: 4px; }
+  .role { font-size: 1.08rem; font-weight: 600; color: #9fb3c8; letter-spacing: .01em; margin: 0 0 22px; }
+  .headline { font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 800; line-height: 1.25; letter-spacing: -0.02em; color: #fff; margin: 0 0 18px; max-width: 24ch; text-wrap: balance; }
+  .lede { color: #c3d0de; font-size: 1.04rem; line-height: 1.7; max-width: 58ch; text-align: justify; hyphens: none; overflow-wrap: normal; word-break: normal; text-wrap: pretty; margin: 0; padding-left: 18px; border-left: 3px solid var(--accent); }
+  .cta-links { display: flex; gap: 24px; margin-top: 18px; }
+  .cta-links a { color: #c3d0de; font-size: .94rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.22); padding-bottom: 2px; transition: color .2s, border-color .2s; }
+  .cta-links a:hover { color: var(--accent); border-color: var(--accent); }
   .edu { margin-top: 64px; }
   .edu ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .edu li { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; background: rgba(255,255,255,.03); }
@@ -116,7 +139,8 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
   .edu-text { display: flex; flex-direction: column; gap: 4px; }
   .edu-text strong { color: #fff; font-size: .98rem; line-height: 1.35; }
   .edu-text small { color: #9fb3c8; font-size: .85rem; }
-  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .cta .btn { padding-inline: 22px; }
   .portrait { justify-self: center; }
   .cutout { position: relative; height: 470px; display: flex; align-items: flex-end; justify-content: center; margin: -40px 0 -56px; }
   .cutout::before { content: ''; position: absolute; left: 50%; bottom: 0; width: 340px; height: 340px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, rgba(217,138,31,.28), rgba(217,138,31,0) 65%); }
@@ -130,11 +154,22 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
   .stats dd { margin: 0; color: #9fb3c8; font-size: .9rem; }
   .alt { background: var(--surface); border-block: 1px solid var(--line); }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-  .services { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  .services li { padding: 18px 20px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; background: var(--bg); display: flex; flex-direction: column; gap: 4px; }
-  .services span { color: var(--ink-2); font-size: .94rem; }
+  .featured { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+  .featured > :global(:first-child) { grid-column: 1 / -1; }
+  .do-intro { position: sticky; top: 110px; }
+  .do-intro .muted { max-width: 46ch; margin-bottom: 18px; }
+  .services { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .services li { padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); display: flex; flex-direction: column; gap: 6px; transition: border-color .2s, transform .2s; }
+  .services li:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); transform: translateY(-2px); }
+  .sv-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 13%, transparent); margin-bottom: 10px; }
+  .sv-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .services strong { font-family: var(--display); font-size: 1.02rem; color: var(--ink); }
+  .sv-text { color: var(--ink-2); font-size: .92rem; line-height: 1.55; }
   @media (max-width: 820px) {
     .hero { padding-top: 48px; }
+    .intro { max-width: none; }
+    .featured { grid-template-columns: 1fr; gap: 20px; }
+    .do-intro { position: static; }
     .hero-grid, .two-col { grid-template-columns: 1fr; gap: 32px; }
     .portrait { justify-self: center; }
     .monogram { display: none; }
@@ -143,5 +178,9 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
     .edu { margin-top: 40px; }
     .edu ul { grid-template-columns: 1fr; }
     .lede { text-align: left; }
+  }
+  @media (max-width: 560px) {
+    .services { grid-template-columns: 1fr; }
+    .cta .btn { flex: 1; text-align: center; }
   }
 </style>

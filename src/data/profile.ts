@@ -4,6 +4,10 @@ export const profile = {
   title: 'BIM Coordinator · Civil Engineer',
   tagline:
     'Civil Engineer and ISO 19650-certified BIM professional with a Postgraduate Diploma in BIM and Construction Management and hands-on experience in high-rise building projects. Skilled in BIM modeling, multidisciplinary coordination, shop drawing preparation, and on-site coordination, with experience supporting project delivery from the modeling stage through coordination, construction documentation, and site execution. Committed to maintaining model accuracy, resolving design clashes, and ensuring alignment between design intent and construction requirements.',
+  // Short version of the tagline, used in the Home page hero.
+  headline: 'BIM coordination that turns models into construction‑ready deliverables.',
+  summary:
+    'Civil engineer and ISO 19650-certified BIM professional with 5+ years on hotels, high-rise and giga-projects in Saudi Arabia. I coordinate multidisciplinary models, resolve clashes and produce LOD 400 shop drawings that site teams can build from.',
   location: 'Jeddah, Saudi Arabia',
   availability: 'Transferable Iqama',
   noticePeriod: '30 days',

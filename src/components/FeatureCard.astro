@@ -1,0 +1,57 @@
+---
+// Larger project card used only in the Home page "Projects" section.
+import type { CollectionEntry } from 'astro:content';
+import Cover from './Cover.astro';
+import { url } from '../lib/url';
+interface Props { item: CollectionEntry<'work'>; wide?: boolean; }
+const { item, wide = false } = Astro.props;
+const d = item.data;
+---
+<a class:list={['card', 'feature', { wide }]} href={url(`/work/${item.id}/`)} aria-label={`${d.title}: view project details`}>
+  <div class="media"><Cover src={d.cover} alt={d.title} label={d.category} /></div>
+  <div class="body">
+    <ul class="meta">
+      {d.location && (
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>{d.location}</li>
+      )}
+      {d.period && (
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>{d.period}</li>
+      )}
+    </ul>
+    <h3>{d.title}</h3>
+    {d.client && <p class="client">{d.client}</p>}
+    <p class="summary">{d.summary}</p>
+    <ul class="chips">
+      {d.lod && <li class="chip lod">{d.lod}</li>}
+      {d.software.slice(0, wide ? 4 : 3).map((s) => <li class="chip">{s}</li>)}
+    </ul>
+    <span class="more">View project details <span aria-hidden="true">→</span></span>
+  </div>
+</a>
+
+<style>
+  .feature { height: 100%; }
+  .media { overflow: hidden; }
+  .media :global(.cover) { aspect-ratio: 16 / 10; transition: transform .5s ease; }
+  .feature:hover .media :global(.cover) { transform: scale(1.03); }
+  .body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+  .meta { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .82rem; color: var(--muted); }
+  .meta li { display: inline-flex; align-items: center; gap: 6px; }
+  .meta svg { width: 15px; height: 15px; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  h3 { color: var(--ink); font-size: 1.22rem; line-height: 1.3; margin: 0 0 4px; }
+  .client { margin: 0 0 12px; font-size: .86rem; font-weight: 600; color: var(--ink-2); }
+  .summary { color: var(--ink-2); font-size: .95rem; line-height: 1.6; margin: 0 0 18px; flex: 1; }
+  .lod { background: color-mix(in srgb, var(--accent) 14%, transparent); border-color: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--accent-ink); font-weight: 600; }
+  .more { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .9rem; font-weight: 700; color: var(--accent-ink); }
+  .more span { display: inline-block; transition: transform .2s; }
+  .feature:hover .more span { transform: translateX(4px); }
+
+  /* The first project gets a side-by-side layout on wide screens. */
+  @media (min-width: 821px) {
+    .wide { display: grid; grid-template-columns: 1.35fr 1fr; }
+    .wide .media :global(.cover) { aspect-ratio: auto; height: 100%; min-height: 340px; }
+    .wide .body { padding: 32px 34px; justify-content: center; }
+    .wide h3 { font-size: 1.6rem; }
+    .wide .summary { font-size: 1rem; flex: 0; }
+  }
+</style>
