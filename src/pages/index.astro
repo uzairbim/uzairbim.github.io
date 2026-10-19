@@ -94,7 +94,8 @@ const services = [
           <p>Model views and drawings from my own project work.</p>
         </div>
       </div>
-      <div class="tech-grid">{showcase.map((item, i) => <TechCard item={item} index={i} />)}</div>
+      <div class="tech-grid">{showcase.slice(0, 4).map((item, i) => <TechCard item={item} index={i} />)}</div>
+      <div class="tech-grid three">{showcase.slice(4).map((item, i) => <TechCard item={item} index={i + 4} />)}</div>
     </div>
   </section>
 
@@ -171,6 +172,7 @@ const services = [
   .showcase .eyebrow { color: var(--accent); }
   .showcase .section-head p { color: #9fb3c8; }
   .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .tech-grid.three { grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
   .alt { background: var(--surface); border-block: 1px solid var(--line); }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
   .featured { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
@@ -188,7 +190,8 @@ const services = [
     .hero { padding-top: 48px; }
     .intro { max-width: none; }
     .featured { grid-template-columns: 1fr; gap: 20px; }
-    .tech-grid { grid-template-columns: 1fr; gap: 20px; }
+    .tech-grid, .tech-grid.three { grid-template-columns: 1fr; gap: 20px; }
+    .tech-grid.three { margin-top: 20px; }
     .do-intro { position: static; }
     .hero-grid, .two-col { grid-template-columns: 1fr; gap: 32px; }
     .portrait { justify-self: center; }
