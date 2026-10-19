@@ -108,8 +108,8 @@ export const profile = {
     },
   ],
   education: [
+    { title: 'BSc Civil Engineering', org: 'UET Peshawar', note: '88%' },
     { title: 'Post Graduate Diploma in BIM & Construction Management', org: 'CanBIM, Canada', note: '91%' },
-    { title: 'Bachelor of Civil Engineering', org: 'UET Peshawar', note: '88%' },
     { title: 'NEBOSH Health & Safety in Construction', org: 'NEBOSH, UK', note: '85%' },
   ],
 };

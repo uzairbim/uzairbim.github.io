@@ -36,6 +36,17 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
       </div>
     </div>
     <div class="container">
+      <div class="edu">
+        <div class="eyebrow">Education</div>
+        <ul>
+          {profile.education.map((e) => (
+            <li>
+              <span class="edu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-6.18 9.27v4.32L12 20l6.18-3.41v-4.32L12 15.64l-6.18-3.37z"/></svg></span>
+              <span class="edu-text"><strong>{e.title}</strong><small>{e.org}</small></span>
+            </li>
+          ))}
+        </ul>
+      </div>
       <dl class="stats">
         {profile.stats.map((s) => (
           <div><dt>{s.value}</dt><dd>{s.label}</dd></div>
@@ -96,7 +107,15 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
   .hero .eyebrow { color: var(--accent); }
   .hero h1 { margin-bottom: 6px; }
   .role { font-size: 1.2rem; font-weight: 600; color: #d6e0ea; margin-bottom: 18px; }
-  .lede { color: #b8c6d6; font-size: 1.08rem; max-width: 56ch; }
+  .lede { color: #c3d0de; font-size: 1.06rem; line-height: 1.75; max-width: 66ch; text-align: justify; hyphens: auto; word-spacing: -0.5px; margin: 0; padding-left: 18px; border-left: 3px solid var(--accent); }
+  .edu { margin-top: 64px; }
+  .edu ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .edu li { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; background: rgba(255,255,255,.03); }
+  .edu-icon { flex: none; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(217,138,31,.14); }
+  .edu-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+  .edu-text { display: flex; flex-direction: column; gap: 4px; }
+  .edu-text strong { color: #fff; font-size: .98rem; line-height: 1.35; }
+  .edu-text small { color: #9fb3c8; font-size: .85rem; }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
   .portrait { justify-self: center; }
   .cutout { position: relative; height: 470px; display: flex; align-items: flex-end; justify-content: center; margin: -40px 0 -56px; }
@@ -105,7 +124,7 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
   .cutout img { position: relative; z-index: 1; height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 10px 22px rgba(0,0,0,.4)); }
   .monogram { width: 280px; height: 320px; border-radius: 18px; object-fit: cover; border: 1px solid rgba(255,255,255,.14); }
   .monogram { display: grid; place-items: center; font-family: var(--display); font-size: 5rem; font-weight: 800; color: var(--accent); background: linear-gradient(160deg, var(--navy-2), var(--navy)); }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 64px 0 0; border-top: 1px solid rgba(255,255,255,.12); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 40px 0 0; border-top: 1px solid rgba(255,255,255,.12); }
   .stats div { padding: 26px 8px 30px; }
   .stats dt { font-family: var(--display); font-size: 1.7rem; font-weight: 800; color: #fff; }
   .stats dd { margin: 0; color: #9fb3c8; font-size: .9rem; }
@@ -120,6 +139,9 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
     .portrait { justify-self: center; }
     .monogram { display: none; }
     .cutout { height: 380px; margin: 0; }
-    .stats { grid-template-columns: repeat(2, 1fr); margin-top: 40px; }
+    .stats { grid-template-columns: repeat(2, 1fr); margin-top: 32px; }
+    .edu { margin-top: 40px; }
+    .edu ul { grid-template-columns: 1fr; }
+    .lede { text-align: left; }
   }
 </style>
