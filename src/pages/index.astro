@@ -107,7 +107,7 @@ const posts = (await getCollection('posts', (p) => !p.data.draft))
   .hero .eyebrow { color: var(--accent); }
   .hero h1 { margin-bottom: 6px; }
   .role { font-size: 1.2rem; font-weight: 600; color: #d6e0ea; margin-bottom: 18px; }
-  .lede { color: #c3d0de; font-size: 1.06rem; line-height: 1.75; max-width: 66ch; text-align: justify; hyphens: auto; word-spacing: -0.5px; margin: 0; padding-left: 18px; border-left: 3px solid var(--accent); }
+  .lede { color: #c3d0de; font-size: 1.06rem; line-height: 1.75; max-width: 66ch; text-align: justify; hyphens: none; overflow-wrap: normal; word-break: normal; text-wrap: pretty; margin: 0; padding-left: 18px; border-left: 3px solid var(--accent); }
   .edu { margin-top: 64px; }
   .edu ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .edu li { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; background: rgba(255,255,255,.03); }
