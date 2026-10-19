@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import TechCard from '../components/TechCard.astro';
+import { showcase } from '../data/showcase';
 import PostCard from '../components/PostCard.astro';
 import { profile } from '../data/profile';
 import { url } from '../lib/url';
@@ -83,6 +85,19 @@ const services = [
     </div>
   </section>
 
+  <section class="section showcase blueprint">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Technical showcase</div>
+          <h2>Technical Expertise in Practice</h2>
+          <p>Model views and drawings from my own project work.</p>
+        </div>
+      </div>
+      <div class="tech-grid">{showcase.map((item, i) => <TechCard item={item} index={i} />)}</div>
+    </div>
+  </section>
+
   <section class="section alt">
     <div class="container two-col">
       <div class="do-intro">
@@ -152,6 +167,10 @@ const services = [
   .stats div { padding: 26px 8px 30px; }
   .stats dt { font-family: var(--display); font-size: 1.7rem; font-weight: 800; color: #fff; }
   .stats dd { margin: 0; color: #9fb3c8; font-size: .9rem; }
+  .showcase { background-color: var(--navy); color: #fff; }
+  .showcase .eyebrow { color: var(--accent); }
+  .showcase .section-head p { color: #9fb3c8; }
+  .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .alt { background: var(--surface); border-block: 1px solid var(--line); }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
   .featured { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
@@ -169,6 +188,7 @@ const services = [
     .hero { padding-top: 48px; }
     .intro { max-width: none; }
     .featured { grid-template-columns: 1fr; gap: 20px; }
+    .tech-grid { grid-template-columns: 1fr; gap: 20px; }
     .do-intro { position: static; }
     .hero-grid, .two-col { grid-template-columns: 1fr; gap: 32px; }
     .portrait { justify-self: center; }
