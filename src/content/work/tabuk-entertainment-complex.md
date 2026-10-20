@@ -15,7 +15,7 @@ order: 3
 
 ## Highlights
 
-- Created parametric Revit families with 95% model accuracy.
-- Managed clash detection and resolved more than 200 conflicts ahead of schedule.
+- Created parametric Revit families for the venue.
+- Managed clash detection in Navisworks and issued clash reports.
 - Tracked deliverables with the MIDP and TIDP so the team met its milestones.
 - Calculated material quantities for ordering and crew planning.

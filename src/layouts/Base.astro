@@ -27,17 +27,20 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0B1118" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container bar">
         <a class="brand" href={url('/')}>
           <span class="mark" aria-hidden="true">UR</span>
-          <span class="brand-text"><strong>{profile.name}</strong><small>BIM Coordinator</small></span>
+          <span class="brand-text"><strong>{profile.name}</strong><small>BIM Engineer</small></span>
         </a>
         <img class="v2030" src={url('/vision-2030.png')} alt="Saudi Vision 2030" width="76" height="52" />
         <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open menu" />
@@ -50,7 +53,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
         </nav>
       </div>
     </header>
-    <main><slot /></main>
+    <main id="main"><slot /></main>
     <footer class="site-footer">
       <div class="container foot">
         <div>
@@ -66,20 +69,34 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       </div>
       <div class="container copy muted">© {new Date().getFullYear()} {profile.name}</div>
     </footer>
+    <script is:inline>
+      // Reveal sections as they scroll into view. Skipped when the visitor prefers reduced motion.
+      (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          els.forEach(function (e) { e.classList.add('in'); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
   </body>
 </html>
 
 <style>
-  .site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 94%, transparent); border-bottom: 1px solid var(--line); }
   .bar { display: flex; align-items: center; justify-content: space-between; height: 68px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .mark { width: 38px; height: 38px; border-radius: 9px; background: var(--navy); color: var(--accent); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .9rem; }
+  .mark { width: 38px; height: 38px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--line-2); color: var(--accent-ink); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .9rem; }
   .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
-  .brand-text small { color: var(--muted); font-size: .76rem; }
+  .brand-text small { color: var(--bronze-ink); font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; }
   .v2030 { height: 52px; width: auto; margin: 0 auto 0 22px; padding-left: 22px; border-left: 1px solid var(--line); opacity: .92; }
   .nav { display: flex; align-items: center; gap: 4px; }
   .nav a:not(.btn) { padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--ink-2); font-weight: 500; font-size: .95rem; }
-  .nav a:not(.btn):hover { color: var(--ink); background: var(--bg); }
+  .nav a:not(.btn):hover { color: var(--ink); background: var(--surface); }
   .nav a.active { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); border-radius: 0; }
   .nav-cv { margin-left: 10px; padding: 8px 14px; }
   .nav-toggle, .burger { display: none; }
@@ -87,12 +104,12 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     .v2030 { height: 42px; margin-left: 14px; padding-left: 14px; }
     .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
     .burger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
-    .nav { position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--surface); border-bottom: 1px solid var(--line); padding: 10px 20px 18px; display: none; }
+    .nav { position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--bg); border-bottom: 1px solid var(--line); padding: 10px 20px 18px; display: none; }
     .nav a.active { box-shadow: inset 3px 0 0 var(--accent); }
     .nav-cv { margin: 8px 0 0; justify-content: center; }
     .nav-toggle:checked ~ .nav { display: flex; }
   }
-  .site-footer { border-top: 1px solid var(--line); background: var(--surface); padding: 32px 0 20px; margin-top: 40px; }
+  .site-footer { border-top: 1px solid var(--line); background: var(--bg); padding: 36px 0 24px; }
   .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
   .foot-links { display: flex; gap: 18px; }
   .foot-links a { text-decoration: none; font-weight: 600; color: var(--ink-2); }

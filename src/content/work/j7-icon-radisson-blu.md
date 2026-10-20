@@ -17,6 +17,6 @@ order: 7
 
 - Built structural (LOD 350) and architectural (LOD 400) models.
 - Detailed reinforcement for rafts, slabs, beams, columns, shear walls and piles.
-- Prepared quantity take-offs within a 5% cost-estimate variance.
+- Prepared quantity take-offs and material schedules.
 
 Related work in the same period included the J7 Emporium Mall and NEOM labour housing.

@@ -1,11 +1,14 @@
 // Everything about you that appears across the site lives here.
 export const profile = {
   name: 'Uzair Ur Rehman',
-  title: 'BIM Coordinator · Civil Engineer',
+  title: 'BIM Engineer · Civil Engineer',
   tagline:
     'Civil Engineer and ISO 19650-certified BIM professional with a Postgraduate Diploma in BIM and Construction Management and hands-on experience in high-rise building projects. Skilled in BIM modeling, multidisciplinary coordination, shop drawing preparation, and on-site coordination, with experience supporting project delivery from the modeling stage through coordination, construction documentation, and site execution. Committed to maintaining model accuracy, resolving design clashes, and ensuring alignment between design intent and construction requirements.',
   // Short version of the tagline, used in the Home page hero.
-  headline: 'BIM coordination that turns models into construction‑ready deliverables.',
+  headline: 'From complex BIM models to construction-ready solutions.',
+  // Supporting line under the Home page headline.
+  positioning:
+    'BIM Engineer and Coordinator specialising in multidisciplinary coordination, architectural and interior fit-out modelling, ISO 19650 information management and BIM automation.',
   summary:
     'Civil engineer and ISO 19650-certified BIM professional with 5+ years on hotels, high-rise and giga-projects in Saudi Arabia. I coordinate multidisciplinary models, resolve clashes and produce LOD 400 shop drawings that site teams can build from.',
   location: 'Jeddah, Saudi Arabia',
@@ -61,8 +64,8 @@ export const profile = {
       period: 'Jun 2025 – Feb 2026',
       project: 'ILMI Science & Innovation Center, MISK City',
       points: [
-        'Developed LOD 400 architectural models, cutting rework by 25% through clash resolution.',
-        'Built Dynamo scripts for sheet creation and export, improving efficiency by 60%.',
+        'Developed LOD 400 architectural models and resolved clashes in Revizto.',
+        'Built Dynamo scripts that create sheets and export them to PDF and CAD with ISO 19650 naming.',
         'Managed MIDP and TIDP and produced 5D quantity take-offs and BOQs.',
       ],
     },
@@ -73,8 +76,8 @@ export const profile = {
       period: 'Jan 2025 – Jun 2025',
       project: 'Tabuk Entertainment Complex',
       points: [
-        'Created parametric Revit families with 95% model accuracy.',
-        'Resolved 200+ clashes in Navisworks ahead of schedule.',
+        'Created parametric Revit families for the project.',
+        'Managed clash detection in Navisworks and issued clash reports.',
       ],
     },
     {
@@ -107,7 +110,7 @@ export const profile = {
       project: 'NEOM Labour Housing · J7 Emporium · J7 ICON & Radisson Blu',
       points: [
         'Produced structural and architectural drawings and reinforcement detailing.',
-        'Prepared quantity take-offs within 5% cost-estimate variance.',
+        'Prepared quantity take-offs and material schedules.',
       ],
     },
   ],

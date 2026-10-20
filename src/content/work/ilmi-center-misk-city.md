@@ -16,8 +16,8 @@ order: 2
 
 ## Highlights
 
-- Developed LOD 400 architectural models and reduced rework by 25% through clash resolution in Revizto.
+- Developed LOD 400 architectural models and resolved clashes in Revizto.
 - Produced LOD 300–400 interior fit-out shop drawings for site execution.
-- Created Revit families, filters and templates that raised team efficiency by 75%.
-- Wrote Dynamo scripts that create sheets and export them to PDF and CAD with ISO 19650 naming, saving 60% of the effort.
+- Created Revit families, filters and templates for the team.
+- Wrote Dynamo scripts that create sheets and export them to PDF and CAD with ISO 19650 naming.
 - Managed the MIDP and TIDP and generated 5D quantity take-offs and BOQs for procurement.
