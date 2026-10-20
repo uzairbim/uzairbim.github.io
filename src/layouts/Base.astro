@@ -40,7 +40,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       <div class="container bar">
         <a class="brand" href={url('/')}>
           <span class="mark" aria-hidden="true">UR</span>
-          <span class="brand-text"><strong>{profile.name}</strong><small>BIM Engineer</small></span>
+          <span class="brand-text"><strong>{profile.name}</strong><small>BIM Engineer | BIM Coordinator</small></span>
         </a>
         <img class="v2030" src={url('/vision-2030.png')} alt="Saudi Vision 2030" width="76" height="52" />
         <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open menu" />
@@ -101,6 +101,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .nav-cv { margin-left: 10px; padding: 8px 14px; }
   .nav-toggle, .burger { display: none; }
   @media (max-width: 980px) {
+    .brand-text small { font-size: .58rem; letter-spacing: .04em; white-space: nowrap; }
     .v2030 { height: 42px; margin-left: 14px; padding-left: 14px; }
     .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
     .burger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
@@ -108,6 +109,14 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     .nav a.active { box-shadow: inset 3px 0 0 var(--accent); }
     .nav-cv { margin: 8px 0 0; justify-content: center; }
     .nav-toggle:checked ~ .nav { display: flex; }
+  }
+  @media (max-width: 420px) {
+    .brand { gap: 9px; }
+    .mark { width: 34px; height: 34px; }
+    .brand-text strong { font-size: .92rem; }
+    .brand-text small { font-size: .52rem; letter-spacing: .02em; }
+    .v2030 { height: 34px; margin-left: 10px; padding-left: 10px; }
+    .burger { padding: 10px 4px 10px 8px; }
   }
   .site-footer { border-top: 1px solid var(--line); background: var(--bg); padding: 36px 0 24px; }
   .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }

@@ -1,14 +1,19 @@
 // Everything about you that appears across the site lives here.
 export const profile = {
   name: 'Uzair Ur Rehman',
-  title: 'BIM Engineer · Civil Engineer',
+  title: 'BIM Engineer | BIM Coordinator',
   tagline:
     'Civil Engineer and ISO 19650-certified BIM professional with a Postgraduate Diploma in BIM and Construction Management and hands-on experience in high-rise building projects. Skilled in BIM modeling, multidisciplinary coordination, shop drawing preparation, and on-site coordination, with experience supporting project delivery from the modeling stage through coordination, construction documentation, and site execution. Committed to maintaining model accuracy, resolving design clashes, and ensuring alignment between design intent and construction requirements.',
   // Short version of the tagline, used in the Home page hero.
   headline: 'From complex BIM models to construction-ready solutions.',
-  // Supporting line under the Home page headline.
+  // Intro paragraph in the Home page hero.
   positioning:
-    'BIM Engineer and Coordinator specialising in multidisciplinary coordination, architectural and interior fit-out modelling, ISO 19650 information management and BIM automation.',
+    '5+ years turning complex BIM models into construction-ready deliverables, most recently on hotels, cultural venues and giga-projects in Saudi Arabia. I coordinate multidisciplinary models, produce LOD 400 shop drawings and manage project information to ISO 19650.',
+  // Set to false to hide the "Open to BIM Engineering Opportunities" status on the Home page.
+  openToWork: true,
+  openToWorkLabel: 'Open to BIM Engineering Opportunities',
+  // Portrait used in the Home page hero (cut out, transparent background).
+  heroPhoto: '/uploads/home/portrait-hero.png',
   summary:
     'Civil engineer and ISO 19650-certified BIM professional with 5+ years on hotels, high-rise and giga-projects in Saudi Arabia. I coordinate multidisciplinary models, resolve clashes and produce LOD 400 shop drawings that site teams can build from.',
   location: 'Jeddah, Saudi Arabia',
