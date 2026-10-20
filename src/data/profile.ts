@@ -9,9 +9,9 @@ export const profile = {
   // Intro paragraph in the Home page hero.
   positioning:
     '5+ years turning complex BIM models into construction-ready deliverables, most recently on hotels, cultural venues and giga-projects in Saudi Arabia. I coordinate multidisciplinary models, produce LOD 400 shop drawings and manage project information to ISO 19650.',
-  // Set to false to hide the "Open to BIM Engineering Opportunities" status on the Home page.
+  // Set to false to hide the "Open to work" status on the Home page.
   openToWork: true,
-  openToWorkLabel: 'Open to BIM Engineering Opportunities',
+  openToWorkLabel: 'Open to BIM Engineer / BIM Coordinator',
   // Portrait used in the Home page hero (cut out, transparent background).
   heroPhoto: '/uploads/home/portrait-hero.png',
   summary:
