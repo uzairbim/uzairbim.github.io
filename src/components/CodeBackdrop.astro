@@ -1,0 +1,221 @@
+---
+// Faint columns of BIM and Python code behind the page. Each column drifts at its
+// own speed as the visitor scrolls, and code that passes through a soft band near
+// the middle of the screen lights up. Decorative only: hidden from screen readers,
+// never clickable, and static for visitors who prefer reduced motion.
+
+const snippets: string[] = [
+`# Dynamo Python Script node
+import clr
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+
+doc = DocumentManager.Instance.CurrentDBDocument
+levels = FilteredElementCollector(doc) \\
+    .OfCategory(BuiltInCategory.OST_Levels) \\
+    .WhereElementIsNotElementType() \\
+    .ToElements()
+
+FT_TO_MM = 304.8
+OUT = [(lv.Name, round(lv.Elevation * FT_TO_MM))
+       for lv in sorted(levels, key=lambda l: l.Elevation)]`,
+
+`#1=IFCPROJECT('0YvctVUKr0kugbFTf53O9L',#2,'Project',$,$,$,$,(#9),#8);
+#20=IFCBUILDINGSTOREY('2xB$qnFJbAsxhJuJV3iQfE',#2,'Level 01',$,$,#21,$,$,.ELEMENT.,3500.);
+#41=IFCWALLSTANDARDCASE('3cUkl32yn9qRSPvBJVyWYp',#2,'Basic Wall:Ext 300',$,$,#42,#47,$);
+#58=IFCSLAB('1rDWRKaDb8rhdIl1M3Q6IN',#2,'Floor:RC 250',$,$,#59,#63,$,.FLOOR.);
+#77=IFCDOOR('0LV8Pk1jz1QxX$HJu4Klad',#2,'Single-Flush',$,$,#78,#81,$,2100.,900.);
+#90=IFCRELCONTAINEDINSPATIALSTRUCTURE('2a1W...',#2,$,$,(#41,#58,#77),#20);
+#102=IFCPROPERTYSINGLEVALUE('FireRating',$,IFCLABEL('2HR'),$);
+#103=IFCPROPERTYSINGLEVALUE('IsExternal',$,IFCBOOLEAN(.T.),$);
+#104=IFCPROPERTYSET('0Kd...',#2,'Pset_WallCommon',$,(#102,#103));`,
+
+`def iso19650_name(project, originator, zone, level, kind, role, number):
+    """PROJECT-ORIGINATOR-ZONE-LEVEL-TYPE-ROLE-NUMBER"""
+    parts = [project, originator, zone, level, kind, role, f'{number:04d}']
+    return '-'.join(p.upper() for p in parts)
+
+for sheet in sheets:
+    name = iso19650_name('PRJ', 'ORG', 'ZZ', sheet.level, 'DR', 'A', sheet.no)
+    pdf_opts = PDFExportOptions()
+    pdf_opts.FileName = name
+    doc.Export(out_dir, [sheet.Id], pdf_opts)`,
+
+`# Parametric wave facade
+import math
+amp, waves, spacing = IN[0], IN[1], IN[2]
+fins = []
+x = 0.0
+while x <= width:
+    depth = min_depth + amp * (1 + math.sin(2 * math.pi * waves * x / width)) / 2
+    base = Line.ByStartPointEndPoint(Point.ByCoordinates(x, 0, 0),
+                                     Point.ByCoordinates(x, 0, height))
+    fins.append(base.Translate(Vector.YAxis(), depth))
+    x += spacing
+OUT = fins`,
+
+`<Clashtest name="STR vs MEP" test_type="hard" tolerance="0.010m">
+  <clashresult name="Clash1" status="new" distance="-0.142">
+    <gridlocation>C-4 : Level 03</gridlocation>
+    <clashobject><layer>Level 03</layer>
+      <smarttag name="Item Name" value="Duct - Rectangular"/></clashobject>
+    <clashobject><layer>Level 03</layer>
+      <smarttag name="Item Name" value="Beam - 400x700"/></clashobject>
+  </clashresult>
+</Clashtest>`,
+
+`with Transaction(doc, 'Place facade panels') as t:
+    t.Start()
+    symbol = get_family_symbol(doc, 'GM_Triangle_Panel')
+    if not symbol.IsActive:
+        symbol.Activate()
+    for p in panel_points:
+        inst = doc.Create.NewFamilyInstance(
+            p.ToXyz(), symbol, Structure.StructuralType.NonStructural)
+        inst.LookupParameter('Panel_Depth').Set(p.depth / 304.8)
+    t.Commit()`,
+
+`# Model health check
+warnings = doc.GetWarnings()
+unplaced = [r for r in FilteredElementCollector(doc).OfClass(SpatialElement)
+            if r.Area == 0]
+cad_imports = FilteredElementCollector(doc).OfClass(ImportInstance).ToElements()
+report = {
+    'warnings': len(warnings),
+    'unplaced_rooms': len(unplaced),
+    'cad_imports': len(cad_imports),
+}
+OUT = report`,
+];
+
+// Pick the code each column shows, so neighbouring columns differ.
+const columns = [
+  [0, 2, 4, 6, 1],
+  [3, 1, 5, 0, 2],
+  [5, 6, 3, 4, 0],
+  [1, 4, 0, 2, 6],
+  [2, 5, 1, 3, 4],
+];
+
+const KEYWORDS = /\b(import|from|def|return|for|in|if|not|while|with|as|and|or|lambda|True|False|None|OUT|IN)\b/g;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+// Light syntax colouring: comments, strings, IFC entity names and keywords.
+function colour(code: string): string {
+  return code.split('\n').map((line) => {
+    const hash = line.match(/^(\s*)(#(?!\d).*)$/);
+    if (hash) return `${esc(hash[1])}<i class="c">${esc(hash[2])}</i>`;
+    let out = esc(line);
+    out = out.replace(/('[^']*'|&quot;[^&]*&quot;|"[^"]*")/g, '<i class="s">$1</i>');
+    out = out.replace(/\b(IFC[A-Z]+)\b/g, '<i class="k">$1</i>');
+    out = out.replace(/(&lt;\/?)([A-Za-z]+)/g, '$1<i class="k">$2</i>');
+    out = out.split(/(<i[^>]*>.*?<\/i>)/).map((part) => (part.startsWith('<i') ? part : part.replace(KEYWORDS, '<i class="k">$1</i>'))).join('');
+    return out;
+  }).join('\n');
+}
+
+const blocks = columns.map((ids) => ids.map((i) => colour(snippets[i])).join('\n\n\n'));
+---
+<div class="code-bg" aria-hidden="true">
+  {['dim', 'lit'].map((layer) => (
+    <div class:list={['cb-layer', layer]}>
+      {blocks.map((html, i) => (
+        <div class="cb-col" data-col={i}>
+          <div class="cb-track">
+            <pre set:html={html} />
+            <pre set:html={html} />
+          </div>
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
+
+<script>
+  // Move each column at its own speed as the page scrolls. The text is repeated
+  // twice in every column so it can loop without a visible jump.
+  const root = document.querySelector<HTMLElement>('.code-bg');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (root) {
+    const speeds = [0.22, -0.16, 0.3, -0.12, 0.18];
+    const tracks = Array.from(root.querySelectorAll<HTMLElement>('.cb-track'));
+    let heights: number[] = [];
+    const measure = () => { heights = tracks.map((t) => (t.firstElementChild as HTMLElement).offsetHeight); };
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      tracks.forEach((t, i) => {
+        const col = Number(t.parentElement!.dataset.col);
+        const h = heights[i] || 1;
+        let off = (y * speeds[col]) % h;
+        if (off > 0) off -= h;
+        t.style.transform = `translate3d(0, ${off.toFixed(1)}px, 0)`;
+      });
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    const start = () => {
+      measure(); update();
+      if (!reduce.matches) window.addEventListener('scroll', onScroll, { passive: true });
+    };
+    window.addEventListener('resize', () => { measure(); update(); });
+    reduce.addEventListener('change', () => { window.removeEventListener('scroll', onScroll); start(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
+    root.classList.add('ready');
+  }
+</script>
+
+<style>
+  .code-bg {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+    user-select: none;
+    /* Fade under the header, and keep the middle of the page calmer than the edges. */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 120px, #000 100%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 120px, #000 100%);
+  }
+  .cb-layer {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px;
+    padding: 0 24px;
+  }
+  .cb-col { position: relative; overflow: hidden; height: 100%; }
+  .cb-track { will-change: transform; }
+  .cb-track pre {
+    margin: 0; padding: 0 0 48px;
+    font-family: var(--mono); font-size: 12px; line-height: 1.75;
+    white-space: pre; overflow: hidden; text-overflow: clip;
+  }
+  .cb-col:nth-child(even) .cb-track { margin-top: -220px; }
+  .cb-track :global(i) { font-style: normal; }
+
+  /* Base layer: barely there. */
+  .dim { color: rgba(199, 205, 213, .045); }
+  .dim :global(.k) { color: rgba(59, 191, 178, .09); }
+  .dim :global(.s) { color: rgba(214, 168, 122, .08); }
+  .dim :global(.c) { color: rgba(163, 175, 189, .035); }
+
+  /* Highlight layer: the same code, only shown inside a soft band, so lines light
+     up as they scroll through it. */
+  .lit {
+    color: rgba(199, 205, 213, .11);
+    -webkit-mask-image: linear-gradient(180deg, transparent 30%, #000 44%, #000 50%, transparent 64%);
+            mask-image: linear-gradient(180deg, transparent 30%, #000 44%, #000 50%, transparent 64%);
+  }
+  .lit :global(.k) { color: rgba(95, 211, 198, .24); }
+  .lit :global(.s) { color: rgba(214, 168, 122, .2); }
+  .lit :global(.c) { color: rgba(163, 175, 189, .09); }
+
+  @media (max-width: 1100px) {
+    .cb-layer { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cb-col:nth-child(n + 4) { display: none; }
+  }
+  @media (max-width: 640px) {
+    .cb-layer { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; padding: 0 12px; }
+    .cb-col:nth-child(n + 3) { display: none; }
+    .cb-track pre { font-size: 10.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lit { display: none; }
+  }
+</style>
