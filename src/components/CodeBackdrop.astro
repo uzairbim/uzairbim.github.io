@@ -1,4 +1,6 @@
 ---
+import { colour } from '../lib/code';
+
 // Faint columns of BIM and Python code behind the page. Each column drifts at its
 // own speed as the visitor scrolls, and code that passes through a soft band near
 // the middle of the screen lights up. Decorative only: hidden from screen readers,
@@ -96,24 +98,6 @@ const columns = [
   [1, 4, 0, 2, 6],
   [2, 5, 1, 3, 4],
 ];
-
-const KEYWORDS = /\b(import|from|def|return|for|in|if|not|while|with|as|and|or|lambda|True|False|None|OUT|IN)\b/g;
-
-const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-// Light syntax colouring: comments, strings, IFC entity names and keywords.
-function colour(code: string): string {
-  return code.split('\n').map((line) => {
-    const hash = line.match(/^(\s*)(#(?!\d).*)$/);
-    if (hash) return `${esc(hash[1])}<i class="c">${esc(hash[2])}</i>`;
-    let out = esc(line);
-    out = out.replace(/('[^']*'|&quot;[^&]*&quot;|"[^"]*")/g, '<i class="s">$1</i>');
-    out = out.replace(/\b(IFC[A-Z]+)\b/g, '<i class="k">$1</i>');
-    out = out.replace(/(&lt;\/?)([A-Za-z]+)/g, '$1<i class="k">$2</i>');
-    out = out.split(/(<i[^>]*>.*?<\/i>)/).map((part) => (part.startsWith('<i') ? part : part.replace(KEYWORDS, '<i class="k">$1</i>'))).join('');
-    return out;
-  }).join('\n');
-}
 
 const blocks = columns.map((ids) => ids.map((i) => colour(snippets[i])).join('\n\n\n'));
 ---
