@@ -36,3 +36,17 @@ export const lab: LabEntry[] = [
     tools: ['pyRevit', 'Revit'],
   },
 ];
+
+// Screenshots shown beside the lab list, in order.
+export const labShots = [
+  {
+    image: '/uploads/showcase/dynamo-parametric-facade.jpg',
+    alt: 'Dynamo graph with sliders for facade width, height, fin spacing, wave amplitude and panel size feeding a CPython3 node that creates wave facade elements in Revit.',
+    caption: 'Parametric wave facade generator · Experiment',
+  },
+  {
+    image: '/uploads/showcase/dynamo-python-automation.jpg',
+    alt: 'Dynamo graph with a Python Script node reading level elevations through the Revit API.',
+    caption: 'Python Script node reading level elevations · Experiment',
+  },
+];

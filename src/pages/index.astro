@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { profile } from '../data/profile';
 import { expertise } from '../data/expertise';
-import { lab } from '../data/lab';
+import { lab, labShots } from '../data/lab';
 import { url } from '../lib/url';
 
 // Featured projects, in the order they appear in the editorial grid.
@@ -25,7 +25,6 @@ const proof = [
 ];
 
 const pad = (n: number) => String(n).padStart(2, '0');
-const lab0 = lab.find((l) => l.image);
 ---
 <Base>
   <!-- HERO -->
@@ -185,12 +184,14 @@ const lab0 = lab.find((l) => l.image);
         <p>Each entry says whether it was used on a live project or is still an experiment. Time savings are only quoted where they were measured.</p>
       </div>
       <div class="lab-grid">
-        {lab0 && (
-          <figure class="lab-shot reveal">
-            <img src={url(lab0.image!)} alt={lab0.alt} loading="lazy" />
-            <figcaption class="label">{lab0.title} · {lab0.status}</figcaption>
-          </figure>
-        )}
+        <div class="lab-shots">
+          {labShots.map((s) => (
+            <figure class="lab-shot reveal">
+              <img src={url(s.image)} alt={s.alt} loading="lazy" />
+              <figcaption class="label">{s.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
         <ol class="lab-list">
           {lab.map((l, i) => (
             <li class="lab-item reveal">
@@ -545,7 +546,8 @@ const lab0 = lab.find((l) => l.image);
   /* ---------- Automation Lab ---------- */
   .lab { background-color: var(--bg); }
   .lab-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 40px; align-items: start; }
-  .lab-shot { margin: 0; position: sticky; top: 96px; }
+  .lab-shots { display: grid; gap: 28px; }
+  .lab-shot { margin: 0; }
   .lab-shot img { border: 1px solid var(--line-2); border-radius: 8px; background: #fff; }
   .lab-shot figcaption { margin-top: 12px; color: var(--muted); font-size: .66rem; }
   .lab-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
@@ -561,7 +563,6 @@ const lab0 = lab.find((l) => l.image);
   .lab-dl dd { margin: 4px 0 0; color: var(--ink-2); font-size: 1rem; line-height: 1.65; }
   @media (max-width: 960px) {
     .lab-grid { grid-template-columns: 1fr; }
-    .lab-shot { position: static; }
   }
 
   /* ---------- Career ---------- */
