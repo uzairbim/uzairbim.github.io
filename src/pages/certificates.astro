@@ -22,7 +22,6 @@ const isFeatured = (id: string) => featuredIds.includes(id);
 const total = certs.length;
 const organisations = new Set(certs.map((c) => organisationOf(c.data)).filter(Boolean)).size;
 const areas = [...new Set(certs.map((c) => areaOf(c.id, c.data)))];
-const verifiable = certs.filter((c) => c.data.link).length;
 const counts = Object.fromEntries(categories.map((k) => [k.id, k.id === 'all' ? total : certs.filter((c) => categoryOf(c.data) === k.id).length]));
 const isoCount = counts.iso;
 // Three real certificates fanned out beside the heading on wide screens (decorative).
@@ -46,7 +45,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <div><dt>Certificates</dt><dd data-count={total}>{total}</dd></div>
         <div><dt>Issuing organisations</dt><dd data-count={organisations}>{organisations}</dd></div>
         <div><dt>Areas of specialisation</dt><dd data-count={areas.length}>{areas.length}</dd></div>
-        <div><dt>Verifiable online</dt><dd data-count={verifiable}>{verifiable}</dd></div>
       </dl>
       <ul class="areas" aria-label="Areas of specialisation">
         {areas.map((a) => <li>{a}</li>)}
@@ -386,7 +384,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .cert-hero h1 { font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.6rem); line-height: 1.04; letter-spacing: -.035em; max-width: 15ch; margin-bottom: 22px; }
   .cert-hero h1 span { color: var(--accent-ink); }
   .lede { font-size: clamp(1.05rem, .95rem + .35vw, 1.25rem); line-height: 1.7; color: var(--ink-2); max-width: 60ch; margin: 0 0 40px; }
-  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); max-width: 920px; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); max-width: 720px; }
   .stats div { padding: 20px 22px 18px 0; }
   .stats div + div { padding-left: 22px; border-left: 1px solid var(--line); }
   .stats dt { order: 2; font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
@@ -396,9 +394,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .areas li { font-size: .84rem; color: var(--ink-2); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(21,36,58,.5); }
   @media (max-width: 720px) {
     .cert-hero { padding: 56px 0 52px; }
-    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .stats div:nth-child(3) { padding-left: 0; border-left: 0; }
-    .stats div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+    .stats div { padding-right: 12px; }
+    .stats div + div { padding-left: 14px; }
   }
 
   /* ---------- Featured row ---------- */
