@@ -26,7 +26,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/uzair-bim-99070b181',
   // These two files live in the "downloads" folder of the website and are NOT rebuilt,
   // so you can replace them yourself (keep the same file names) and just Commit + Push.
-  cv: '/downloads/Uzair-Ur-Rehman-CV.pdf',
+  cv: '/downloads/Uzair-Ur-Rehman-BIM-Coordinator-CV.pdf',
   // Full portfolio, shared from Google Drive.
   portfolioLink: 'https://drive.google.com/file/d/1yQp9b4RPkZOflR_YYVwJiz0oZps_PIFL/view?usp=sharing',
   certificatesLink:
