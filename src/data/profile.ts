@@ -27,8 +27,8 @@ export const profile = {
   // These two files live in the "downloads" folder of the website and are NOT rebuilt,
   // so you can replace them yourself (keep the same file names) and just Commit + Push.
   cv: '/downloads/Uzair-Ur-Rehman-CV.pdf',
-  // Canva share link: always shows the latest version of your Canva design.
-  portfolioLink: 'https://canva.link/br3h9qou92mbvsf',
+  // Full portfolio, shared from Google Drive.
+  portfolioLink: 'https://drive.google.com/file/d/1yQp9b4RPkZOflR_YYVwJiz0oZps_PIFL/view?usp=sharing',
   certificatesLink:
     'https://drive.google.com/drive/folders/1gEnsfeMzxnoIgOD_vvTEDHrFduvBCbLC?usp=sharing',
   photo: '/uploads/profile-full.png',

@@ -21,7 +21,7 @@ const certs = (await getCollection('certificates')).sort((a, b) => a.data.order 
         {profile.about.map((p) => <p>{p}</p>)}
         <div class="cta">
           <a class="btn btn-primary" href={url(profile.cv)} target="_blank" rel="noopener">CV</a>
-          <a class="btn btn-outline" href={profile.portfolioLink} target="_blank" rel="noopener">Full portfolio (Canva)</a>
+          <a class="btn btn-outline" href={profile.portfolioLink} target="_blank" rel="noopener">Full portfolio</a>
           <a class="btn btn-outline" href={url('/certificates/')}>View certificates</a>
         </div>
       </div>
