@@ -37,13 +37,6 @@ export const lab: LabEntry[] = [
     image: '/uploads/showcase/dynamo-material-cleanup.jpg',
     alt: 'Revit Material Browser listing materials renamed with the 20105_H1 prefix, beside a Dynamo Python Script node showing the prefix, separator, skip and never-delete settings.',
   },
-  {
-    title: 'Custom hatch patterns with pyRevit',
-    status: 'Used on a project',
-    context: 'ILMI Science & Innovation Center, Riyadh',
-    solution: 'Hatch patterns created with pyRevit for the interior fit-out model and shop drawings.',
-    tools: ['pyRevit', 'Revit'],
-  },
 ];
 
 // Screenshots shown beside the lab list, in order.
