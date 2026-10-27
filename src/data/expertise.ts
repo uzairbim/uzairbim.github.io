@@ -62,6 +62,28 @@ export const expertise: ExpertiseArea[] = [
     ],
   },
   {
+    id: 'site',
+    label: 'Site Verification',
+    title: 'Ceiling heights checked on site against the approved design',
+    text: 'Clear heights measured on site at each critical point, photographed and marked on the reflected ceiling plan, so shortfalls against the ID-approved ceiling height are raised before ceilings are built.',
+    points: [
+      'Available height measured at each numbered point on site',
+      'Each point photographed and tagged with the available and required height',
+      'Areas where the available height falls short highlighted on the plan',
+      'Required heights include the ceiling framing allowance',
+    ],
+    tools: ['Revit', 'Site survey'],
+    image: '/uploads/showcase/ceiling-height-survey.jpg',
+    alt: 'Reflected ceiling plan of a restaurant and kitchen area marked with eight numbered site photos, each tagged with the available and the required ceiling height, and orange zones where the available height is short.',
+    caption: 'Ceiling height survey marked on the reflected ceiling plan',
+    callouts: [
+      { x: 92, y: 15, text: 'Note: required heights include ceiling framing to reach the ID-approved height' },
+      { x: 55, y: 28, text: 'Numbered site photo of each measurement' },
+      { x: 45, y: 43, text: 'Tag with the available and required ceiling height' },
+      { x: 60, y: 71, text: 'Orange zones mark where the available height is short' },
+    ],
+  },
+  {
     id: 'information',
     label: 'Information Management',
     title: 'ISO 19650 information management in a common data environment',

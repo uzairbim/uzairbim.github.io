@@ -29,6 +29,15 @@ export const lab: LabEntry[] = [
     alt: 'Dynamo graph with sliders for facade width, height, fin spacing, wave amplitude and panel size feeding a CPython3 node that creates wave facade elements in Revit.',
   },
   {
+    title: 'Material clean-up: project prefix and unused materials',
+    status: 'Experiment',
+    problem: 'Project materials with mixed names, and unused materials left behind in the model.',
+    solution: 'A Dynamo Python Script node that renames materials to the project prefix (for example 20105_H1_Interior Walls) and lists unused materials for deletion. Settings at the top set the prefix, the separator, names to skip and names never to delete, and the results can be written to a CSV file. The delete list is checked against Revit\u2019s Purge Unused before anything is removed.',
+    tools: ['Dynamo', 'Python', 'Revit API'],
+    image: '/uploads/showcase/dynamo-material-cleanup.jpg',
+    alt: 'Revit Material Browser listing materials renamed with the 20105_H1 prefix, beside a Dynamo Python Script node showing the prefix, separator, skip and never-delete settings.',
+  },
+  {
     title: 'Custom hatch patterns with pyRevit',
     status: 'Used on a project',
     context: 'ILMI Science & Innovation Center, Riyadh',
@@ -48,5 +57,10 @@ export const labShots = [
     image: '/uploads/showcase/dynamo-python-automation.jpg',
     alt: 'Dynamo graph with a Python Script node reading level elevations through the Revit API.',
     caption: 'Python Script node reading level elevations · Experiment',
+  },
+  {
+    image: '/uploads/showcase/dynamo-material-cleanup.jpg',
+    alt: 'Revit Material Browser listing materials renamed with the 20105_H1 prefix, beside a Dynamo Python Script node showing the prefix, separator, skip and never-delete settings.',
+    caption: 'Material clean-up script and renamed materials · Experiment',
   },
 ];
